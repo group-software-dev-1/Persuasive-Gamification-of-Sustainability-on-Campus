@@ -5,7 +5,7 @@
 - Level system
 - Cummlative points can be redeemed for rewards
 - Heat map
-### Tasks you could dp
+### Tasks you could do
 - Using study rooms
 - Finding litter
 - Daily/weekly tasks
