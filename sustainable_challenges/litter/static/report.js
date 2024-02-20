@@ -5,10 +5,6 @@ window.addEventListener("load", (event) => {
 
         document.getElementById('lat_field').value = latitude;
         document.getElementById('lon_field').value = longitude;
-        document.getElementById('datetime').value = new Date();
-
-        console.log(latitude);
-        console.log(longitude);
     }
 
     function error() {

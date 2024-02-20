@@ -1,2 +1,6 @@
 <p>{{instance}}</p>
+{% if instance.img %}
+    <img src="{{ instance.img.url }}" width="500">
+{% endif %}
+<br/>
 <a href="{% url 'litter:latest' %}">Back</a>

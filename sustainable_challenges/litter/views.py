@@ -31,12 +31,13 @@ def report(request):
             obj.lat = float(request.POST['lat_field'])
             obj.lon = float(request.POST['lon_field'])
             obj.user_id = request.user.id
-            instance = obj.save()
-            return HttpResponseRedirect(f'/litter/report?submitted=True&id={instance.id}')
+            obj.save()
+            _instance = LitterInstance.objects.get(datetime=obj.datetime, user_id=obj.user_id)
+            return HttpResponseRedirect(f'/litter/report?submitted=True&id={_instance.id}')
     else:
         form = InstanceForm
         if 'submitted' in request.GET and 'id' in request.GET:
             submitted = True
-            id = request.GET[id]
+            id = request.GET['id']
 
     return render(request, 'litter/report.html', {'form': form, 'submitted': submitted, 'id': id})
