@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import LitterInstance
 
-# Register your models here.
+admin.site.register(LitterInstance)
