@@ -4,7 +4,7 @@
     <li><a href="{% url 'litter:instance' instance.id %}">{{ instance }}</a></li>
 {% endfor %}
 </ul>
-<a href="{% url 'litter:report' %}">Report and instance of litter</a>
 {% else %}
 <p>No instances are available.</p>
 {% endif %}
+<a href="{% url 'litter:report' %}">Report and instance of litter</a>
