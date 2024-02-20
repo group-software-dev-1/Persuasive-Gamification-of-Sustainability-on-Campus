@@ -30,7 +30,7 @@ def report(request):
             obj.datetime = timezone.now()
             obj.lat = float(request.POST['lat_field'])
             obj.lon = float(request.POST['lon_field'])
-            obj.submitter_id = request.user.id
+            obj.user_id = request.user.id
             instance = obj.save()
             return HttpResponseRedirect(f'/litter/report?submitted=True&id={instance.id}')
     else:
