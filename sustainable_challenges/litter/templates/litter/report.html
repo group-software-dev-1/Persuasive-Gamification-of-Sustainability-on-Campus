@@ -1,0 +1,25 @@
+{% load static %}
+        <script src="{% static 'report_litter.js' %}"></script>
+{% block content %}
+<h1>Report an instance of litter</h1>
+<br/><br/>
+{% if submitted %}
+    Litter instance reported succefully.
+    <br/>
+    <a href="{% url 'litter:instance' id %}">View report</a>
+{% else %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+            {{ form.as_p }}
+        </fieldset>
+
+        <input type="text" name="lat_field" id="lat_field" hidden="hidden">
+        <input type="text" name="lon_field" id="lon_field" hidden="hidden">
+        <input type="submit" value="Report">
+    </form>
+{% endif %}
+
+<a href="{% url 'litter:latest' %}">Back</a>
+
+{% endblock %}
