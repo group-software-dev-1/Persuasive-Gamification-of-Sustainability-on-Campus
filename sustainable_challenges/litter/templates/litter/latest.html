@@ -1,12 +1,17 @@
-{% if latest_instance_list %}
-<ul>
-{% for instance in latest_instance_list %}
-    <li><a href="{% url 'litter:instance' instance.id %}">{{ instance }}</a></li>
-{% endfor %}
-</ul>
+{% if is_staff %}
+    {% if latest_instance_list %}
+    <ul>
+    {% for instance in latest_instance_list %}
+        <li><a href="{% url 'litter:instance' instance.id %}">{{ instance }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No instances are available.</p>
+    {% endif %}
 {% else %}
-<p>No instances are available.</p>
+    <p>You do not have permission to view this data</p>
 {% endif %}
+    
 <a href="{% url 'litter:report' %}">Report and instance of litter</a>
 <br/>
 <a href="{% url 'litter:heatmap' %}">View litter heatmap</a>
