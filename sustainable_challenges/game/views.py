@@ -7,3 +7,6 @@ from django.template import loader
 def index(request):
     template = loader.get_template("game/index.html")
     return HttpResponse(template.render(request=request))
+
+def login(request):
+    return render(request, "game/login.html")
