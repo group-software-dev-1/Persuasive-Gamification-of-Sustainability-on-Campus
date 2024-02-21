@@ -1,9 +1,13 @@
-#main {
-    background-image: url(../melanfolia-HSr_FUzDH2w-unsplash.jpg);
+body {
+    background-image: url(./melanfolia-HSr_FUzDH2w-unsplash.jpg);
     width: 100%;
     height: 100%;
     background-size: cover;
     position: absolute;
     background-position-y: center;
     background-position-x: center;
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
 }
