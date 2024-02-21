@@ -41,3 +41,8 @@ def report(request):
             id = request.GET['id']
 
     return render(request, 'litter/report.html', {'form': form, 'submitted': submitted, 'id': id})
+
+
+def heatmap(request):
+    approved_instances = LitterInstance.objects.filter(approved=True)
+    pass
