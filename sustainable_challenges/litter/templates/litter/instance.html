@@ -1,6 +1,10 @@
-<p>{{instance}}</p>
-{% if instance.img %}
-    <img src="{{ instance.img.url }}" width="500">
+{% if is_staff or requester_id == instance.user_id %}
+    <p>{{instance}}</p>
+    {% if instance.img %}
+        <img src="{{ instance.img.url }}" width="500">
+    {% endif %}
+{% else %}
+    <p>You do not have permission to view this instance</p>
 {% endif %}
 <br/>
 <a href="{% url 'litter:latest' %}">Back</a>
