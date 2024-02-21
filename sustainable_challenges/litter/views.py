@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .forms import InstanceForm
+from json import dumps
 
 class LatestView(generic.ListView):
     template_name = "litter/latest.html"
@@ -45,4 +46,10 @@ def report(request):
 
 def heatmap(request):
     approved_instances = LitterInstance.objects.filter(approved=True)
-    pass
+    data = []
+    for _instance in approved_instances:
+        data.append([float(_instance.lat), float(_instance.lon), 1])
+
+    dataJSON = dumps(data)
+    
+    return render(request, 'litter/heatmap.html', {'data': dataJSON})
