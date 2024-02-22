@@ -55,7 +55,8 @@ def heatmap(request):
 
     dataJSON = dumps(data)
     
-    return render(request, 'litter/heatmap.html', {'data': dataJSON})
+    return render(request, 'litter/heatmap.html', {'data': dataJSON,
+                                                   'is_staff': request.user.is_staff})
 
 
 def approve(request, instance_id):
