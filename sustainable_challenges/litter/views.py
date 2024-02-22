@@ -7,18 +7,20 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .forms import InstanceForm
+from json import dumps
 
-class LatestView(generic.ListView):
-    template_name = "litter/latest.html"
-    context_object_name = "latest_instance_list"
+    
+def latest(request):
+    valid_instances = LitterInstance.objects.filter(approved=False).order_by("-datetime")
+    return render(request, "litter/latest.html", {"latest_instance_list": valid_instances, 
+                                                  "is_staff": request.user.is_staff})
 
-    def get_queryset(self) -> QuerySet[Any]:
-        valid_instances = LitterInstance.objects.filter(approved=False)
-        return valid_instances.order_by("-datetime")[:5]
     
 def instance(request, instance_id):
     _instance = get_object_or_404(LitterInstance, pk=instance_id)
-    return render(request, "litter/instance.html", {"instance": _instance})
+    return render(request, "litter/instance.html", {"instance": _instance, 
+                                                    "requester_id": request.user.id, 
+                                                    "is_staff": request.user.is_staff})
 
 def report(request):
     submitted = False
@@ -40,4 +42,17 @@ def report(request):
             submitted = True
             id = request.GET['id']
 
-    return render(request, 'litter/report.html', {'form': form, 'submitted': submitted, 'id': id})
+    return render(request, 'litter/report.html', {'form': form, 
+                                                  'submitted': submitted, 
+                                                  'id': id})
+
+
+def heatmap(request):
+    approved_instances = LitterInstance.objects.filter(approved=True)
+    data = []
+    for _instance in approved_instances:
+        data.append([float(_instance.lat), float(_instance.lon), 1])
+
+    dataJSON = dumps(data)
+    
+    return render(request, 'litter/heatmap.html', {'data': dataJSON})
