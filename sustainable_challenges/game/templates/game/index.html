@@ -1,0 +1,13 @@
+{% extends 'game/base.html'%}
+
+{%block content%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+<div class="container welcome">
+    <h1>Welcome to Sustainable Challenges</h1>
+    <br />
+    <div class="badge text-wrap" style="background-color: #007d69;">
+        <p>You appear to not be signed in, Click here to <a href="/login">Log in.</a></p>
+    </div>
+</div>
+{%endblock%}
