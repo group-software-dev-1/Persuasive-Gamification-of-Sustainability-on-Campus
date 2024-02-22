@@ -11,3 +11,4 @@ class InstanceForm(ModelForm):
             'lat': forms.NumberInput(attrs={'hidden':'hidden'}),
             'lon': forms.NumberInput(attrs={'hidden':'hidden'}),
         }
+

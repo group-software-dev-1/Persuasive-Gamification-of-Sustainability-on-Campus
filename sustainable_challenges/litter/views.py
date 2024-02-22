@@ -56,3 +56,8 @@ def heatmap(request):
     dataJSON = dumps(data)
     
     return render(request, 'litter/heatmap.html', {'data': dataJSON})
+
+
+def approve(request):
+    pass
+
