@@ -1,7 +1,18 @@
 {% if is_staff or requester_id == instance.user_id %}
     <p>{{instance}}</p>
+    {% if instance.approved == 0 %}
+        <p>Status: Pending</p>
+    {% elif instance.approved == 1 %}
+        <p>Status: Approved</p>
+    {% elif instance.approved == 2 %}
+        <p>Status: Rejected</p>
+    {% endif %}
     {% if instance.img %}
         <img src="{{ instance.img.url }}" width="500">
+    {% endif %}
+    {% if is_staff %}
+        <br/>
+        <a href="{% url 'litter:approve' instance.id %}">Moderate</a>        
     {% endif %}
 {% else %}
     <p>You do not have permission to view this instance</p>
