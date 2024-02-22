@@ -9,13 +9,6 @@ from django.utils import timezone
 from .forms import InstanceForm
 from json import dumps
 
-# class LatestView(generic.ListView):
-#     template_name = "litter/latest.html"
-#     context_object_name = "latest_instance_list"
-
-#     def get_queryset(self) -> QuerySet[Any]:
-#         valid_instances = LitterInstance.objects.filter(approved=False)
-#         return valid_instances.order_by("-datetime")[:5]
     
 def latest(request):
     valid_instances = LitterInstance.objects.filter(approved=False).order_by("-datetime")
