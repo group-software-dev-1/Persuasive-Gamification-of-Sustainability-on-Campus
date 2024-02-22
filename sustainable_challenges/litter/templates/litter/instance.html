@@ -1,3 +1,5 @@
+{%  extends "base.html" %}
+{% block content %}
 {% if is_staff or requester_id == instance.user_id %}
     <p>{{instance}}</p>
     {% if instance.approved == 0 %}
@@ -19,3 +21,4 @@
 {% endif %}
 <br/>
 <a href="{% url 'litter:latest' %}">Back</a>
+{% endblock %}
