@@ -6,12 +6,12 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .forms import InstanceForm
+from .forms import InstanceForm, ApproveForm
 from json import dumps
 
     
 def latest(request):
-    valid_instances = LitterInstance.objects.filter(approved=False).order_by("-datetime")
+    valid_instances = LitterInstance.objects.filter(approved=0).order_by("-datetime")
     return render(request, "litter/latest.html", {"latest_instance_list": valid_instances, 
                                                   "is_staff": request.user.is_staff})
 
@@ -48,7 +48,7 @@ def report(request):
 
 
 def heatmap(request):
-    approved_instances = LitterInstance.objects.filter(approved=True)
+    approved_instances = LitterInstance.objects.filter(approved=1)
     data = []
     for _instance in approved_instances:
         data.append([float(_instance.lat), float(_instance.lon), 1])
@@ -58,6 +58,23 @@ def heatmap(request):
     return render(request, 'litter/heatmap.html', {'data': dataJSON})
 
 
-def approve(request):
-    pass
+def approve(request, instance_id):
+    submitted = False
+    _instance = LitterInstance.objects.get(pk=instance_id)
+    if request.method == 'POST':
+        form = ApproveForm(request.POST)
+        if form.is_valid():
+            _instance.approved = form.cleaned_data['options']
+            _instance.save()
+            return HttpResponseRedirect(f'/litter/approve/{_instance.id}?submitted=True')
+    else:
+        form = ApproveForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    return render(request, 'litter/approve.html', {'form': form,
+                                                   'instance': _instance,
+                                                   'submitted': submitted,
+                                                   'id': _instance.id,
+                                                   "is_staff": request.user.is_staff})
 
