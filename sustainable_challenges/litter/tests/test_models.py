@@ -70,3 +70,18 @@ class TestLitterInstance(TestCase):
         instance = LitterInstance.objects.get(pk=1)
         user = get_user_model().objects.get(pk=1)
         self.assertEqual(instance.user_id, user.id)
+
+    def test_lat_default(self):
+        instance = LitterInstance.objects.get(pk=1)
+        default = instance._meta.get_field('lat').default
+        self.assertEqual(default, 0)
+
+    def test_lon_default(self):
+        instance = LitterInstance.objects.get(pk=1)
+        default = instance._meta.get_field('lon').default
+        self.assertEqual(default, 0)
+
+    def test_approved_default(self):
+        instance = LitterInstance.objects.get(pk=1)
+        default = instance._meta.get_field('approved').default
+        self.assertEqual(default, 0)
