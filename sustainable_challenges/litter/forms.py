@@ -1,8 +1,7 @@
 from django import forms
-from django.forms import ModelForm
 from .models import LitterInstance
 
-class InstanceForm(ModelForm):
+class InstanceForm(forms.ModelForm):
     class Meta:
         model = LitterInstance
         fields = ('img',)
@@ -11,3 +10,7 @@ class InstanceForm(ModelForm):
             'lat': forms.NumberInput(attrs={'hidden':'hidden'}),
             'lon': forms.NumberInput(attrs={'hidden':'hidden'}),
         }
+
+class ApproveForm(forms.Form):
+    choices = ((1, 'Approve'), (2, 'Reject'))
+    options = forms.ChoiceField(label='Options', choices=choices)

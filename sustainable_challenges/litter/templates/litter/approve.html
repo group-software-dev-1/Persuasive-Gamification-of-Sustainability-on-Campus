@@ -1,0 +1,22 @@
+{%  extends "base.html" %}
+{% block content %}
+{% if is_staff %}
+    {% if submitted %}
+        Litter instance updated succefully.
+        <br/>
+        <a href="{% url 'litter:instance' id %}">View report</a>
+    {% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+{% else %}
+    <p>You do not have permission to view this page</p>
+{% endif %}
+<a href="{% url 'litter:latest' %}">Back</a>
+{% endblock %}
+
+<!-- NOT IN USE -->
