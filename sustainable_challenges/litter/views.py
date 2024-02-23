@@ -17,10 +17,27 @@ def latest(request):
 
     
 def instance(request, instance_id):
+    submitted = False
     _instance = get_object_or_404(LitterInstance, pk=instance_id)
-    return render(request, "litter/instance.html", {"instance": _instance, 
-                                                    "requester_id": request.user.id, 
-                                                    "is_staff": request.user.is_staff})
+
+    if request.method == 'POST':
+        form = ApproveForm(request.POST)
+        if form.is_valid():
+            _instance.approved = form.cleaned_data['options']
+            _instance.save()
+            return HttpResponseRedirect(f'/litter/instance/{_instance.id}?submitted=True')
+    else:
+        form = ApproveForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    return render(request, 'litter/instance.html', {'form': form,
+                                                   'instance': _instance,
+                                                   'submitted': submitted,
+                                                   'id': _instance.id,
+                                                   "requester_id": request.user.id,
+                                                   "is_staff": request.user.is_staff})
+
 
 def report(request):
     submitted = False
@@ -59,23 +76,5 @@ def heatmap(request):
                                                    'is_staff': request.user.is_staff})
 
 
-def approve(request, instance_id):
-    submitted = False
-    _instance = LitterInstance.objects.get(pk=instance_id)
-    if request.method == 'POST':
-        form = ApproveForm(request.POST)
-        if form.is_valid():
-            _instance.approved = form.cleaned_data['options']
-            _instance.save()
-            return HttpResponseRedirect(f'/litter/approve/{_instance.id}?submitted=True')
-    else:
-        form = ApproveForm
-        if 'submitted' in request.GET:
-            submitted = True
 
-    return render(request, 'litter/approve.html', {'form': form,
-                                                   'instance': _instance,
-                                                   'submitted': submitted,
-                                                   'id': _instance.id,
-                                                   "is_staff": request.user.is_staff})
 

@@ -14,7 +14,17 @@
     {% endif %}
     {% if is_staff %}
         <br/>
-        <a href="{% url 'litter:approve' instance.id %}">Moderate</a>        
+        {% if submitted %}
+            Litter instance updated succefully.
+            <br/>
+        {% elif instance.approved == 0 %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                
+                <input type="submit" value="Submit">
+            </form>
+        {% endif %}       
     {% endif %}
 {% else %}
     <p>You do not have permission to view this instance</p>
