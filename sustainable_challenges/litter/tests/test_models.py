@@ -85,3 +85,8 @@ class TestLitterInstance(TestCase):
         instance = LitterInstance.objects.get(pk=1)
         default = instance._meta.get_field('approved').default
         self.assertEqual(default, 0)
+
+    def test_img_upload_path(self):
+        instance = LitterInstance.objects.get(pk=1)
+        upload_to = instance._meta.get_field('img').upload_to
+        self.assertEqual(upload_to, 'images/litter/')
