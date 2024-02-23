@@ -90,3 +90,8 @@ class TestLitterInstance(TestCase):
         instance = LitterInstance.objects.get(pk=1)
         upload_to = instance._meta.get_field('img').upload_to
         self.assertEqual(upload_to, 'images/litter/')
+
+    def test_str(self):
+        instance = LitterInstance.objects.get(pk=1)
+        expected_str = f"User: {instance.user}, {instance.lat}, {instance.lon} @ {instance.datetime}"
+        self.assertEqual(str(instance), expected_str)
