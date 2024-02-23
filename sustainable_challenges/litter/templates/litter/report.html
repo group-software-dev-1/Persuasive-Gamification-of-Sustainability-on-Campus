@@ -1,6 +1,7 @@
-{% load static %}
-        <script src="{% static 'report.js' %}"></script>
+{%  extends "base.html" %}
 {% block content %}
+{% load static %}
+    <script src="{% static 'report.js' %}"></script>
 <h1>Report an instance of litter</h1>
 <br/><br/>
 {% if submitted %}

@@ -1,3 +1,5 @@
+{%  extends "base.html" %}
+{% block content %}
 {% if is_staff %}
     {% if latest_instance_list %}
     <ul>
@@ -15,3 +17,4 @@
 <a href="{% url 'litter:report' %}">Report and instance of litter</a>
 <br/>
 <a href="{% url 'litter:heatmap' %}">View litter heatmap</a>
+{% endblock %}
