@@ -1,0 +1,9 @@
+#main {
+    display: block;
+    top: 2%;
+    position: relative;
+}
+
+.card {
+    margin: auto;
+}
