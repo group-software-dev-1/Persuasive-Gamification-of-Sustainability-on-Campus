@@ -1,6 +1,6 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from .models import LitterInstance
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -11,6 +11,9 @@ from json import dumps
 
     
 def latest(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+    
     valid_instances = LitterInstance.objects.filter(approved=0).order_by("-datetime")
     return render(request, "litter/latest.html", {"latest_instance_list": valid_instances, 
                                                   "is_staff": request.user.is_staff})
@@ -20,7 +23,13 @@ def instance(request, instance_id):
     submitted = False
     _instance = get_object_or_404(LitterInstance, pk=instance_id)
 
+    if not (request.user.is_staff or request.user.id == _instance.user_id):
+        return HttpResponseForbidden()
+
     if request.method == 'POST':
+        if (not request.user.is_staff) or request.user.id == _instance.user_id:
+            return HttpResponseForbidden()
+        
         form = ApproveForm(request.POST)
         if form.is_valid():
             _instance.approved = form.cleaned_data['options']
@@ -40,6 +49,9 @@ def instance(request, instance_id):
 
 
 def report(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+    
     submitted = False
     id = -1
     if request.method == "POST":
@@ -65,6 +77,9 @@ def report(request):
 
 
 def heatmap(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+    
     approved_instances = LitterInstance.objects.filter(approved=1)
     data = []
     for _instance in approved_instances:
