@@ -5,8 +5,8 @@ from django.template import loader
 
 
 def index(request):
-    template = loader.get_template("home/index.html")
-    return HttpResponse(template.render(request=request))
+    return render(request, 'home/index.html', {"is_staff": request.user.is_staff,
+                                               "is_authenticated": request.user.is_authenticated})
 
 def login(request):
     return render(request, "home/login.html")

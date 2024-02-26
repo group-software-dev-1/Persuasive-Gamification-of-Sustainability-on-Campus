@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
-from .forms import RegistrationForm, LoginForm  
+from authuser.forms import RegistrationForm, LoginForm  
 
 def register(request):
     if request.method == 'POST':
@@ -20,7 +20,7 @@ def my_view(request):
     return render(request, 'my_template.html')
 
 
-def login_view(request):  
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
@@ -44,7 +44,8 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    return render(request, 'home/login.html', {'form': form})
+    return render(request, 'home/login.html', {'form': form,
+                                               'is_authenticated': request.user.is_authenticated})
 
 
 

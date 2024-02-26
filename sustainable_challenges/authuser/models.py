@@ -30,8 +30,11 @@ class CustomUserManager(UserManager):
         
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(blank=True, default='', unique=True)
-    name = models.CharField(max_length=255, blank=True, default='')
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=30, unique=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    points = models.IntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -46,14 +49,30 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='user_groups',
+        blank=True,
+        verbose_name='groups',
+        help_text='The groups this user belongs to. A user will get all permissions granted to these groups.',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='user_permissions',
+        blank=True,
+        verbose_name='user permissions',
+        help_text='Specific permissions for this user.',
+        related_query_name='user',
+    )
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
     def get_full_name(self):
-        return self.name
+        return f"%s %s" % (self.first_name, self.last_name)
     
     def get_short_name(self):
-        return self.name or self.email.split('@')[0]
+        return self.first_name or self.email.split('@')[0]
     
 
