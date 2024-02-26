@@ -42,5 +42,3 @@ def login_view(request):
 
     return render(request, 'home/login.html', {'form': form})
 
-
-
