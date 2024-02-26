@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
-from ..authuser.forms import RegistrationForm, LoginForm  
+from authuser.forms import RegistrationForm, LoginForm  
 
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(data=request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -14,10 +14,6 @@ def register(request):
         form = RegistrationForm()
 
     return render(request, 'register.html', {'form': form, 'errors': form.errors})
-
-def my_view(request):
-    messages.success(request, 'This is a success message.')
-    return render(request, 'my_template.html')
 
 
 def login_view(request):
@@ -44,8 +40,7 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    return render(request, 'home/login.html', {'form': form,
-                                               'is_authenticated': request.user.is_authenticated})
+    return render(request, 'home/login.html', {'form': form})
 
 
 

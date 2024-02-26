@@ -7,7 +7,7 @@ class CustomUserManager(UserManager):
 
     def _create_user(self, email, password, **kwargs):
         if not email:
-            raise ValueError("You have not provided a valud e-mail address.")
+            raise ValueError("You have not provided a valid e-mail address.")
         
         email = self.normalize_email(email)
         user = self.model(email=email, **kwargs)
@@ -31,9 +31,10 @@ class CustomUserManager(UserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=30, unique=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+
+    username = models.CharField(max_length=30, unique=True, default="")
+    first_name = models.CharField(max_length=30, default="")
+    last_name = models.CharField(max_length=30, default="")
     points = models.IntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
@@ -70,9 +71,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = 'Users'
 
     def get_full_name(self):
-        return f"%s %s" % (self.first_name, self.last_name)
+       return f"%s %s" % (self.first_name, self.last_name)
     
     def get_short_name(self):
-        return self.first_name or self.email.split('@')[0]
+       return self.first_name or self.email.split('@')[0]
     
 

@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authuser',
-    'accounts',
     'home',
     'game'
 ]
@@ -142,6 +141,4 @@ STATICFILES_DIRS = (
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.CustomEmailBackend',
-
 ]
