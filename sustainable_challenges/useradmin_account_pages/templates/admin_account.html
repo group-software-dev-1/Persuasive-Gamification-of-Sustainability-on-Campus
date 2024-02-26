@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Account Page</title>
+    <!-- Add your CSS stylesheets here -->
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Account Page</h1>
+        
+        <!-- Admin Account Section -->
+        <div class="admin-content">
+            <h2>Admin Account Section</h2>
+            <!-- Add admin-specific content here -->
+            <p>Welcome, Admin! Here you can manage user accounts and perform administrative tasks.</p>
+        </div>
+
+        <!-- Form to approve LitterInstance -->
+        <form action="{% url 'approve_litter_instance' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Approve Litter Instance</button>
+        </form>
+
+    </div>
+</body>
+</html>
