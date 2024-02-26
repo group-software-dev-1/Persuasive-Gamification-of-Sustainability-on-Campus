@@ -14,3 +14,7 @@ class InstanceForm(forms.ModelForm):
 class ApproveForm(forms.Form):
     choices = ((1, 'Approve'), (2, 'Reject'))
     options = forms.ChoiceField(label='Options', choices=choices)
+
+class TimeRangeForm(forms.Form):
+    s_date = forms.DateTimeField(label='Start date', widget=forms.DateTimeInput(attrs={'type': 'date'}))
+    e_date = forms.DateTimeField(label='End date', widget=forms.DateTimeInput(attrs={'type': 'date'}))
