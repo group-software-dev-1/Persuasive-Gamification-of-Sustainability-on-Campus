@@ -40,5 +40,5 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    return render(request, 'home/login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 

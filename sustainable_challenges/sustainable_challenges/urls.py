@@ -25,6 +25,6 @@ urlpatterns = [
     path('litter/', include('litter.urls')),
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('register/', include('authuser.urls')),
+    path('login/', include('authuser.urls')),
     path('game/', include('game.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

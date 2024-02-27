@@ -17,7 +17,7 @@
                 </ul>
               </div>
             {% endif %}
-            <form method="post" action="{% url 'accounts:register' %}">
+            <form method="post" action="{% url 'authuser:register' %}">
               {% csrf_token %}
               {{ form.as_p }}
               <button type="submit" class="btn btn-primary">Register</button>
