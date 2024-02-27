@@ -7,13 +7,13 @@ from .models import LitterInstance
 
 @login_required
 def user_account(request):
-    return render(request, 'user_account.html')
+    return render(request, 'user_account.html', {'is_staff': request.user.is_staff})
 
 @login_required
 def admin_account(request):
     if not request.user.is_admin:
         return HttpResponse("Unauthorized", status=401)
-    return render(request, 'admin_account.html')
+    return render(request, 'admin_account.html', {'is_staff': request.user.is_staff})
 
 def approve_litter_instance(request):
     if request.method == 'POST':

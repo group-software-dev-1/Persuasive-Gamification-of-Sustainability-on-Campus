@@ -18,7 +18,7 @@ def latest(request):
 
 def your_instances(request):
     instance_list = LitterInstance.objects.filter(user_id=request.user.id).order_by("-datetime")
-    return render(request, "litter/your-instances.html", {"instance_list": instance_list})
+    return render(request, "litter/your-instances.html", {"instance_list": instance_list, 'is_staff': request.user.is_staff})
 
     
 def instance(request, instance_id):
@@ -66,7 +66,8 @@ def report(request):
 
     return render(request, 'litter/report.html', {'form': form, 
                                                   'submitted': submitted, 
-                                                  'id': id})
+                                                  'id': id,
+                                                  'is_staff': request.user.is_staff})
 
 
 def heatmap(request):
