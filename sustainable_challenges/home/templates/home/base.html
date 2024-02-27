@@ -29,9 +29,10 @@
                         <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="/litter/report">Submit Report</a></li>
-                            <li><a class="dropdown-item" href="">Your Reports</a></li>
+                            <li><a class="dropdown-item" href="/litter/your-instances">Your Reports</a></li>
                             {% if is_staff %}
                             <li><a class="dropdown-item" href="/litter/latest">Latest</a></li>
+                            <li><a class="dropdown-item" href="/litter/heatmap">Litter Heatmap</a></li>
                             {% endif %}
                         </ul>
                     </li>
