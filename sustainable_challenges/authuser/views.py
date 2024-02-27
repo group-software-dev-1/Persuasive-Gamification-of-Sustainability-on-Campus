@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from authuser.forms import RegistrationForm, LoginForm  
 
 def register(request):
@@ -42,3 +42,6 @@ def login_view(request):
 
     return render(request, 'login.html', {'form': form})
 
+def logout_view(request):
+    logout(request)
+    return redirect('home:index')
