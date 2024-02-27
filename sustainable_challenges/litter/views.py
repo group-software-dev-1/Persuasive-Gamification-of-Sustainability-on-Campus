@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .forms import InstanceForm, ApproveForm
+from .forms import InstanceForm, ApproveForm, TimeRangeForm
 from json import dumps
 
     
@@ -14,6 +14,11 @@ def latest(request):
     valid_instances = LitterInstance.objects.filter(approved=0).order_by("-datetime")
     return render(request, "litter/latest.html", {"latest_instance_list": valid_instances, 
                                                   "is_staff": request.user.is_staff})
+
+
+def your_instances(request):
+    instance_list = LitterInstance.objects.filter(user_id=request.user.id).order_by("-datetime")
+    return render(request, "litter/your-instances.html", {"instance_list": instance_list})
 
     
 def instance(request, instance_id):
@@ -65,14 +70,26 @@ def report(request):
 
 
 def heatmap(request):
-    approved_instances = LitterInstance.objects.filter(approved=1)
     data = []
-    for _instance in approved_instances:
-        data.append([float(_instance.lat), float(_instance.lon), 1])
-
-    dataJSON = dumps(data)
+    if request.method == 'POST':
+        form = TimeRangeForm(request.POST)
+        if form.is_valid():
+            start_date = form.cleaned_data['s_date'].date()
+            end_date = form.cleaned_data['e_date'].date()
+            return HttpResponseRedirect(f'/litter/heatmap?start_date={start_date}&end_date={end_date}')
+    else:
+        form = TimeRangeForm
+        if 'start_date' in request.GET and 'end_date' in request.GET:
+            approved_instances = LitterInstance.objects.filter(approved=1, datetime__range=[request.GET['start_date'], request.GET['end_date']])
+        else:
+            approved_instances = LitterInstance.objects.filter(approved=1)
+        for _instance in approved_instances:
+            data.append([float(_instance.lat), float(_instance.lon), 1])
+        
+        dataJSON = dumps(data)
     
-    return render(request, 'litter/heatmap.html', {'data': dataJSON,
+        return render(request, 'litter/heatmap.html', {'data': dataJSON,
+                                                       'form': form,
                                                    'is_staff': request.user.is_staff})
 
 
