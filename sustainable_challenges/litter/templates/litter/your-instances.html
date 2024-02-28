@@ -1,0 +1,13 @@
+{%  extends "base.html" %}
+{% block content %}
+{% if instance_list %}
+<ul>
+{% for instance in instance_list %}
+    <li><a href="{% url 'litter:instance' instance.id %}">{{ instance }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No instances are available.</p>
+{% endif %}
+<a href="{% url 'litter:report' %}">Report and instance of litter</a>
+{% endblock %}

@@ -28,6 +28,11 @@ def latest(request: HttpRequest) -> HttpResponse:
     return render(request, "litter/latest.html", {"latest_instance_list": valid_instances, 
                                                   "is_staff": request.user.is_staff})
 
+
+def your_instances(request):
+    instance_list = LitterInstance.objects.filter(user_id=request.user.id).order_by("-datetime")
+    return render(request, "litter/your-instances.html", {"instance_list": instance_list})
+
     
 def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpResponseRedirect:
     '''

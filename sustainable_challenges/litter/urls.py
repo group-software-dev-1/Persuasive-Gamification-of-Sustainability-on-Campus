@@ -8,4 +8,5 @@ urlpatterns = [
     path("instance/<int:instance_id>/", views.instance, name="instance"),
     path("report/", views.report, name='report'),
     path("heatmap/", views.heatmap, name='heatmap'),
+    path("your-instances/", views.your_instances, name="your instances"),
 ]
