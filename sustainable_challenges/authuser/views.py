@@ -27,7 +27,7 @@ def login_view(request):
             print(f"Cleaned data: {form.cleaned_data}")
 
             user = authenticate(request, email=email, password=password)
-
+            
             if user is not None:
                 login(request, user)
                 print(f"Logged in user: {user}")
