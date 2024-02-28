@@ -1,0 +1,73 @@
+{% extends 'home/base.html'%}
+
+{%block content%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shop.css' %}" />
+<div id="main">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'amazon-giftcard.png' %}" class="card-img-top" alt="amazon giftcard">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Amazon giftcard sweepstake</h5>
+                    <p class="card-text">Enter amazon giftcard sweepstake</p>
+                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'john-lewis.png' %}" class="card-img-top" alt="john lewis">
+                <div class="card-body text-center">
+                    <h5 class="card-title">John Lewis giftcard sweepstake</h5>
+                    <p class="card-text">Enter John Lewis giftcard sweepstake</p>
+                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'blackwells.png' %}" class="card-img-top" alt="blackwells">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Blackwells giftcard</h5>
+                    <p class="card-text">Cash in points for the giftcard to the University bookshop</p>
+                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'Ram_bar_logo.jpg' %}" class="card-img-top" alt="Ram logo">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Ram bar discount card</h5>
+                    <p class="card-text">Cash in points for the discount to the University bar</p>
+                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'student-guild.png' %}" class="card-img-top" alt="Student Guild logo">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Student Guild discount card</h5>
+                    <p class="card-text">Cash in points for the discount at the University Student Guild</p>
+                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'TMP-Forum-logo.jpg' %}" class="card-img-top" alt="Marketplace logo">
+                <div class="card-body text-center">
+                    <h5 class="card-title">The Marketplace discount card</h5>
+                    <p class="card-text">Cash in points for the discount to the University food shop</p>
+                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{%endblock%}

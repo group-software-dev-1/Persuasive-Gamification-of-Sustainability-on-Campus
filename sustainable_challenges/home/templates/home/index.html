@@ -1,13 +1,27 @@
-{% extends 'home/base.html'%}
+{% extends 'home/base.html' %}
 
-{%block content%}
+{% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'index.css' %}" />
 <div class="container welcome">
     <h1>Welcome to Sustainable Challenges</h1>
     <br />
+    {% if request.user.is_authenticated %}
+        {% if is_staff %}
+        <div class="badge text-wrap" style="background-color: #007d69;">
+            <h1>ADMIN LANDING PAGE</h1>
+        </div>
+        {% else %}
+        <div class="badge text-wrap" style="background-color: #007d69;">
+            <h1>USER LANDING PAGE</h1>
+            <h3>Click <a href="/game">here</a> to play the game!</h3>
+        </div>
+        {% endif %}
+    {% else %}
     <div class="badge text-wrap" style="background-color: #007d69;">
-        <p>You appear to not be signed in, Click here to <a href="/login">Log in.</a></p>
+        <p>You appear to not be signed in. Click here to <a href="/login">Log in</a>.</p>
+        <p>To create an account, click <a href="/login/register">here</a>.</p>
     </div>
+    {% endif %}
 </div>
-{%endblock%}
+{% endblock %}
