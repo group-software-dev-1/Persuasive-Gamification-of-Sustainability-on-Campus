@@ -13,7 +13,7 @@ def register(request):
     else:
         form = RegistrationForm()
 
-    return render(request, 'register.html', {'form': form, 'errors': form.errors})
+    return render(request, 'register.html', {'form': form, 'errors': form.errors, 'is_staff': request.user.is_staff})
 
 
 def login_view(request):
@@ -40,7 +40,7 @@ def login_view(request):
     else:
         form = LoginForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'is_staff': request.user.is_staff})
 
 def logout_view(request):
     logout(request)
