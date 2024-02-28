@@ -111,3 +111,25 @@ class TestInstance(TestCase):
         self.assertEqual(LitterInstance.objects.get(pk=2).approved, 2)
         response = self.client.post(reverse("litter:instance", args=[2]), {'options': 1})
         self.assertEqual(LitterInstance.objects.get(pk=2).approved, 1)
+
+
+class TestReport(TestCase):
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        get_user_model().objects.create_user(email='is_staff@email.com', password='testPassword', is_staff=True)
+        get_user_model().objects.create_user(email='not_staff@email.com', password='testPassword', is_staff=False)
+
+    def test_access_for_staff(self):
+        pass
+
+    def test_access_for_non_staff(self):
+        pass
+
+    def test_post_method_for_staff(self):
+        pass
+
+    def test_post_method_for_non_staff(self):
+        pass
+
+    
