@@ -14,7 +14,7 @@
           {% endfor %}
         </div>
       {% endif %}
-      <form method="post" action="{% url 'authuser:login' %}">
+      <form method="post" action="{% url 'authuser:login' %}" enctype="application/x-www-form-urlencoded">
     {% csrf_token %}
     <div class="row mb-3">
         <label for="{{ form.email.id_for_label }}" class="col-sm-2 col-form-label">Email</label>
