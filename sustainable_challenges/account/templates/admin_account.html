@@ -20,12 +20,6 @@
             <p>Welcome, Admin! Here you can manage user accounts and perform administrative tasks.</p>
         </div>
 
-        <!-- Form to approve LitterInstance -->
-        <form action="{% url 'approve_litter_instance' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Approve Litter Instance</button>
-        </form>
-
     </div>
 </body>
 </html>
