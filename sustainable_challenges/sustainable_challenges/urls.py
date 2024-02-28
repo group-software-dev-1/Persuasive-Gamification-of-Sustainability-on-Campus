@@ -19,9 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+app_name = 'sustainable_challenges'
+
 urlpatterns = [
     path('litter/', include('litter.urls')),
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('game', include('game.urls'))
+    path('login/', include('authuser.urls')),
+    path('game/', include('game.urls')),
+    path('account/', include('account.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

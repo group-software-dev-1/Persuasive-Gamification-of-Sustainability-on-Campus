@@ -17,7 +17,7 @@
         {% if submitted %}
             Litter instance updated succefully.
             <br/>
-        {% elif instance.approved == 0 %}
+        {% elif instance.approved == 0 and requester_id != instance.user_id %}
             <form action="" method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
