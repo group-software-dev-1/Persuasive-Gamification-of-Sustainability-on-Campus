@@ -11,6 +11,7 @@
         crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="icon" href="{% static 'favicon.png' %}">
     {% endblock %}
 </head>
 
@@ -18,7 +19,9 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #007d69">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="/">Sustainable Challenges</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -26,7 +29,8 @@
                     <!--if user is logged in:-->
                     {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
+                        <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="/litter/report">Submit Report</a></li>
                             <li><a class="dropdown-item" href="/litter/your-instances">Your Reports</a></li>
@@ -64,9 +68,9 @@
                     </li>
                     {% endif %}
                 </ul>
-          </div>
+            </div>
         </div>
-      </nav>
+    </nav>
     {% block content %}
     {% endblock %}
 </body>
