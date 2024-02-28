@@ -49,9 +49,6 @@ def instance(request, instance_id):
 
 
 def report(request):
-    if not request.user.is_staff:
-        return HttpResponseForbidden()
-    
     submitted = False
     id = -1
     if request.method == "POST":
