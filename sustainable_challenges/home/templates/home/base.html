@@ -42,9 +42,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/game/shop">Shop</a>
                     </li>
+                    {% if is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="">Account</a>
+                        <a class="nav-link" href="/account/admin_account">Account</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account/user_account">Account</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login/logout">Logout</a>
                     </li>
