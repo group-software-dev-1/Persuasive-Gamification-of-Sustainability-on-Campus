@@ -132,4 +132,42 @@ class TestReport(TestCase):
     def test_post_method_for_non_staff(self):
         pass
 
+
+class TestHeatmap(TestCase):
     
+    @classmethod
+    def setUpTestData(cls) -> None:
+        get_user_model().objects.create_user(email='is_staff@email.com', password='testPassword', is_staff=True)
+        get_user_model().objects.create_user(email='not_staff@email.com', password='testPassword', is_staff=False)
+        LitterInstance.objects.create(user=get_user_model().objects.get(pk=1),
+                                        lat=53.1353531,
+                                        lon=-3.2452353,
+                                        img='/images/test/test_litter.jpg', 
+                                        datetime=timezone.now(), 
+                                        approved=1)
+        LitterInstance.objects.create(user=get_user_model().objects.get(pk=1),
+                                        lat=55.1353331,
+                                        lon=-3.2452311,
+                                        img='/images/test/test_litter.jpg', 
+                                        datetime=timezone.now(), 
+                                        approved=1)
+        LitterInstance.objects.create(user=get_user_model().objects.get(pk=2),
+                                        lat=53.1353121,
+                                        lon=-3.2454353,
+                                        img='/images/test/test_litter.jpg', 
+                                        datetime=timezone.now(), 
+                                        approved=0)
+        LitterInstance.objects.create(user=get_user_model().objects.get(pk=2),
+                                        lat=53.1353935,
+                                        lon=-3.2452013,
+                                        img='/images/test/test_litter.jpg', 
+                                        datetime=timezone.now(), 
+                                        approved=1)
+        
+
+    def test_access_for_staff(self):
+        pass
+
+    def test_access_denied_for_non_staff(self):
+        pass
+
