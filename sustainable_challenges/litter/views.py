@@ -1,5 +1,5 @@
 from typing import Any
-from django.http import HttpResponseRedirect, HttpRequest, HttpResponse
+from django.http import HttpResponseRedirect, HttpRequest, HttpResponse, HttpResponseForbidden
 from .models import LitterInstance
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -7,7 +7,7 @@ from django.utils import timezone
 from .forms import InstanceForm, ApproveForm, TimeRangeForm
 from json import dumps
 
-    
+
 def latest(request: HttpRequest) -> HttpResponse:
     '''
     Endpoint for displaying a list (in date order) of instances that need approving/rejecting
@@ -22,6 +22,9 @@ def latest(request: HttpRequest) -> HttpResponse:
     HttpResponse
         Containing the latest.html webpage
     '''
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+    
     # Get the pending status instances and order them by oldest first
     valid_instances = LitterInstance.objects.filter(approved=0).order_by("-datetime")
     # Render the webpage
@@ -71,7 +74,13 @@ def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpRespo
     submitted = False
     _instance = get_object_or_404(LitterInstance, pk=instance_id)
 
+    if not (request.user.is_staff or request.user.id == _instance.user_id):
+        return HttpResponseForbidden()
+
     if request.method == 'POST':
+        if (not request.user.is_staff) or request.user.id == _instance.user_id:
+            return HttpResponseForbidden()
+        
         form = ApproveForm(request.POST)
         if form.is_valid():
             _instance.approved = form.cleaned_data['options']
@@ -151,6 +160,9 @@ def heatmap(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
         Containing the heatmap.html webpage.
         If HttpResponseRedirect it means that a POST request was received for changing the datetime range to view
     '''
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+      
     data = []
     if request.method == 'POST':
         form = TimeRangeForm(request.POST)
