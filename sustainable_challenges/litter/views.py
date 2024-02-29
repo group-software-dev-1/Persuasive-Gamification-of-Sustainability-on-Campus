@@ -184,9 +184,9 @@ def heatmap(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
         for _instance in approved_instances:
             data.append([float(_instance.lat), float(_instance.lon), 1])
         
-        # JSON encode it
-        dataJSON = dumps(data)
-    
-        return render(request, 'litter/heatmap.html', {'data': dataJSON,
-                                                       'form': form,
-                                                   'is_staff': request.user.is_staff})
+    # JSON encode it
+    dataJSON = dumps(data)
+
+    return render(request, 'litter/heatmap.html', {'data': dataJSON,
+                                                    'form': form,
+                                                'is_staff': request.user.is_staff})
