@@ -27,5 +27,6 @@ urlpatterns = [
     path('', include('home.urls')),
     path('login/', include('authuser.urls')),
     path('game/', include('game.urls')),
-    path('account/', include('account.urls'))
+    path('account/', include('account.urls')),
+    path('forum/', include('forum.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
