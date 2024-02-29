@@ -49,7 +49,7 @@ def your_instances(request: HttpRequest) -> HttpResponse:
     # Get the instances submitted by this user and order them by oldest first
     instance_list = LitterInstance.objects.filter(user_id=request.user.id).order_by("-datetime")
     # Render the webpage
-    return render(request, "litter/your-instances.html", {"instance_list": instance_list})
+    return render(request, "litter/your-instances.html", {"instance_list": instance_list, 'is_staff': request.user.is_staff})
 
     
 def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpResponseRedirect:
@@ -140,7 +140,8 @@ def report(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
 
     return render(request, 'litter/report.html', {'form': form, 
                                                   'submitted': submitted, 
-                                                  'id': id})
+                                                  'id': id,
+                                                  'is_staff': request.user.is_staff})
 
 
 def heatmap(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:

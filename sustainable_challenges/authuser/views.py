@@ -20,7 +20,7 @@ def register(request):
         #If the request isnt post, created a form
         form = RegistrationForm()
     #and then render the registration form with the errors
-    return render(request, 'register.html', {'form': form, 'errors': form.errors})
+    return render(request, 'register.html', {'form': form, 'errors': form.errors, 'is_staff': request.user.is_staff})
 
 #Login view, quite similar to above
 def login_view(request):
@@ -52,7 +52,7 @@ def login_view(request):
         #And if the request isnt a post
         form = LoginForm()
     #creates one and renders 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'is_staff': request.user.is_staff})
 
 #Logging out
 def logout_view(request):
