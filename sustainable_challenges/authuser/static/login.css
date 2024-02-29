@@ -1,0 +1,16 @@
+.login-div {
+    background-color: gray;
+    box-shadow: 5px 5px 2px lightgray;
+    height: 80%;
+    width: 80%;
+    margin: auto;
+    top: 2%;
+    position: relative;
+    text-align: center;
+}
+
+.container-centre {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
