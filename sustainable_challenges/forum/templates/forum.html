@@ -5,10 +5,12 @@
 {% if announcements or suggestions %}
     <ul>
         {%for announcement in announcements%}
-        <li><a href="/announcement{{ announcement.id }}">{{ announcement.post_name }}</a></li>
+        <li>
+            <a href="announcement/{{announcement.id}}">{{ announcement.post_name }}</a>
+        </li>
         {% endfor %}
         {%for suggestion in suggestions %}
-            <li><a href="{{ post.id }}">{{ suggestion.post_name }}</a></li>
+            <li><a href="suggestion/{{suggestion.id}}">{{ suggestion.post_name }}</a></li>
         {% endfor %}
     </ul>
 {% else %}
