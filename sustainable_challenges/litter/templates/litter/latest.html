@@ -1,6 +1,6 @@
 {%  extends "base.html" %}
 {% block content %}
-{% if not is_staff %}
+{% if is_staff %}
     {% if latest_instance_list %}
     <ul>
     {% for instance in latest_instance_list %}
