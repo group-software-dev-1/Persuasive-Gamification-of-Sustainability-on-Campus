@@ -1,20 +1,38 @@
 {%  extends "base.html" %}
 {% block content %}
-{% if not is_staff %}
+{% if is_staff %}
     {% if latest_instance_list %}
-    <ul>
-    {% for instance in latest_instance_list %}
-        <li><a href="{% url 'litter:instance' instance.id %}">{{ instance }}</a></li>
-    {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col col-sm-12 text-center "><h1>Pending Instances</h1></div>
+    </div>
+    <div class="row justify-content-md-center">
+        <ul class="col col-sm-12 list-group p-2 col-lg-5">
+            <li class="list-group-item">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col col-sm-2 col-md-2 text-center">User</div>
+                        <div class="col col-sm-9 col-md-8 text-center">Datetime</div>
+                        <div class="col col-sm-1 col-md-2 text-center">Instance</div>
+                    </div>
+                </div>
+            </li>
+            {% for instance in latest_instance_list %}
+                <li class="list-group-item">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col col-sm-2 col-md-2 text-center d-flex align-items-center justify-content-center">{{instance.user.username}}</div>
+                            <div class="col col-sm-9 col-md-8 text-center d-flex align-items-center justify-content-center">{{instance.datetime}}</div>
+                            <div class="col col-sm-1 col-md-2 text-center d-flex align-items-center justify-content-center"><a role="button" class="btn btn-outline-secondary" href="{% url 'litter:instance' instance.id %}">View</a></div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
     {% else %}
     <p>No instances are available.</p>
     {% endif %}
 {% else %}
     <p>You do not have permission to view this data</p>
 {% endif %}
-    
-<a href="{% url 'litter:report' %}">Report and instance of litter</a>
-<br/>
-<a href="{% url 'litter:heatmap' %}">View litter heatmap</a>
 {% endblock %}
