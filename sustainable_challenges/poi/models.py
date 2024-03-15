@@ -15,9 +15,10 @@ class PlaceOfInterest(models.Model):
     lon: float
          The longitude of the reports location
     '''
-    desc = models.TextField("Description", default="")
-    lat = models.DecimalField("Latitude", default=0, decimal_places=7, max_digits=10)
-    lon = models.DecimalField("Longitude", default=0, decimal_places=7, max_digits=10)
+    title = models.CharField("Title", max_length=100)
+    desc = models.TextField("Description")
+    lat = models.DecimalField("Latitude", decimal_places=15, max_digits=18)
+    lon = models.DecimalField("Longitude", decimal_places=15, max_digits=18)
 
     def __str__(self):
         return f"{self.lat}, {self.lon} | {self.desc}"
