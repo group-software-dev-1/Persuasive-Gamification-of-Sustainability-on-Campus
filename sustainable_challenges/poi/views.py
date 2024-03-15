@@ -1,6 +1,6 @@
 from typing import Any
 from django.http import HttpResponseRedirect, HttpRequest, HttpResponse, HttpResponseForbidden
-from .models import LitterInstance
+from .models import PlaceOfInterest
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils import timezone
