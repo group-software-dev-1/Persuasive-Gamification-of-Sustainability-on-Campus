@@ -49,3 +49,6 @@ def submit(request: HttpRequest) -> HttpResponse | HttpResponseRedirect | HttpRe
                                                   'submitted': submitted, 
                                                   'id': id,
                                                   'is_staff': request.user.is_staff})
+
+def information(request):
+    return render(request, 'poi/info.html')
