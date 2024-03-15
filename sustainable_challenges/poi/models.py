@@ -17,8 +17,8 @@ class PlaceOfInterest(models.Model):
     '''
     title = models.CharField("Title", max_length=100)
     desc = models.TextField("Description")
-    lat = models.DecimalField("Latitude", decimal_places=15, max_digits=18)
-    lon = models.DecimalField("Longitude", decimal_places=15, max_digits=18)
+    lat = models.DecimalField("Latitude", decimal_places=16, max_digits=19)
+    lon = models.DecimalField("Longitude", decimal_places=16, max_digits=19)
 
     def __str__(self):
         return f"{self.lat}, {self.lon} | {self.desc}"
