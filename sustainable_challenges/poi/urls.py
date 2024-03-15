@@ -4,7 +4,7 @@ from . import views
 
 app_name="poi"
 urlpatterns = [
-    path("map/", views.latest, name="map"),
-    path("info/<int:poi_id>/", views.instance, name="info"),
-    path("submit/", views.report, name='submit'),
+    # path("map/", views.map, name="map"),
+    # path("info/<int:poi_id>/", views.information, name="info"),
+    # path("submit/", views.submit, name='submit'),
 ]
