@@ -44,7 +44,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True, default="")
     first_name = models.CharField(max_length=30, default="")
     last_name = models.CharField(max_length=30, default="")
+    
     points = models.IntegerField(default=0)
+    level = models.IntegerField(default = 1)
+    tasks_till_next_lvl = models.IntegerField(default = 1)
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
