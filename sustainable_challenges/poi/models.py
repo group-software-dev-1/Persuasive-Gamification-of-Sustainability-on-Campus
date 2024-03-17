@@ -22,3 +22,22 @@ class PlaceOfInterest(models.Model):
 
     def __str__(self):
         return f"{self.lat}, {self.lon} | {self.desc}"
+    
+
+class VisitedPlaceOfInterest(models.Model):
+    '''
+     Database table to keep track of what users have visited where
+     so that a user cannot vist the same place twice and get points for it again.
+    
+     Fields
+     ------
+     user: Django user
+          The user that has visted the palce
+     place: PlaceOfInterest
+            The place that has been visited
+    '''
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="User")
+    place = models.ForeignKey(PlaceOfInterest, on_delete=models.CASCADE, verbose_name="Place Of Interest")
+
+    def __str__(self):
+        return f"{self.user} @ {self.place}"
