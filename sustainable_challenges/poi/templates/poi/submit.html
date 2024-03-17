@@ -1,0 +1,79 @@
+{%  extends "base.html" %}
+{% block content %}
+{% load static %}
+<script src="{% static 'submit.js' %}" defer></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<div class="row d-flex justify-content-center">
+    <!-- <div class="col-sm-12 col-md-8"> -->
+        <!-- <div class="container-fluid"> -->
+            <!-- <div class="row d-flex justify-content-center"> -->
+                {% if submitted %}
+                    <div class="col-sm-8 col-md-6 d-flex justify-content-center bg-white rounded mb-0">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-sm-12 justify-content-center align-items-center text-center mt-5">
+                                Place of interest successfully submitted.
+                            </div>
+                            <div class="col-sm-12 d-flex justify-content-center align-items-center mb-5">
+                                <button class="btn btn-success" href="{% url 'poi:info' id %}">View</button>
+                            </div>
+                        </div>
+                        <!-- <div class="row justify-content-center align-items-center">
+                        </div> -->
+                    </div>
+                {% else %}
+                <form class="col-sm-8 col-md-6 d-flex justify-content-center align-items-center bg-white rounded mb-0" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="">
+                        <!-- <div class="row ">
+                            <div class="col-sm-8 d-flex align-items-center justify-content-center"> -->
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-sm-8 p-0">
+                                        <div class="row mt-2">
+                                            {{ form.title.label_tag }}
+                                            {{ form.title }}
+                                        </div>
+                                        <div class="row">
+                                            {{ form.desc.label_tag }}
+                                            {{ form.desc }}
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center align-items-center my-2">
+                                        <div class="col-sm-5">
+                                            {{ form.lat.as_field_group }}
+                                        </div>
+                                        <div class="col-sm-5">
+                                            {{ form.lon.as_field_group }}
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center align-items-center">
+                                        <button type="submit" class="btn btn-success m-2">Submit</button>
+                                    </div>
+                                </div>
+                                <!-- {{ form.desc.as_field_group }} -->
+                            <!-- </div> -->
+                            <!-- <div class="row align-items-center justify-content-center"> -->
+                                
+                            <!-- </div> -->
+                            <!-- <div class="col-sm-4 d-flex align-items-center justify-content-center">
+                            </div> -->
+                        <!-- </div> -->
+                        
+                    </fieldset>
+            
+                    <!-- <input type="text" name="lat_field" id="lat_field" hidden="hidden">
+                    <input type="text" name="lon_field" id="lon_field" hidden="hidden"> -->
+                    <!-- <button type="submit" class="btn btn-danger m-2">Report</button> -->
+                </form>
+                {% endif %}
+                <div class="col-sm-6 col-md-4 d-flex justify-content-center align-items-center">
+                    <div style="width: 400; height: 400;">
+                        <div id="map" class="w-100 h-100"></div>
+                    </div>
+                </div>
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
+</div>
+
+{% endblock %}
