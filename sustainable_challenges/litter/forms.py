@@ -7,7 +7,7 @@ class InstanceForm(forms.ModelForm):
     The only thing this form will really accept is the image
     Everything else for the LitterInstance model will come from either js or the report view
     '''
-    img = forms.ImageField(label="", widget=forms.ClearableFileInput(attrs={'class': ''}))
+    #img = forms.ImageField(label="", widget=forms.ClearableFileInput(attrs={'class': ''}))
     
     class Meta:
         model = LitterInstance
