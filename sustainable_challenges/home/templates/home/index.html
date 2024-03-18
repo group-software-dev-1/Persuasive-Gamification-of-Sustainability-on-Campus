@@ -9,11 +9,11 @@
     {% if request.user.is_authenticated %}
         {% if is_staff %}
         <div class="badge text-wrap" style="background-color: #007d69;">
-            <h1>ADMIN LANDING PAGE</h1>
+            <h2>You are logged in as an admin.</h2>
         </div>
         {% else %}
         <div class="badge text-wrap" style="background-color: #007d69;">
-            <h1>USER LANDING PAGE</h1>
+            <h2>You are logged in as a user.</h2>
             <h3>Click <a href="/game">here</a> to play the game!</h3>
         </div>
         {% endif %}
