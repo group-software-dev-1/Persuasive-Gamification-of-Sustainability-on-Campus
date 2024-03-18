@@ -64,6 +64,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    GAME_MANAGER = GameManager()
+
     #Relationship model with group
     groups = models.ManyToManyField(
         'auth.Group',
@@ -93,5 +95,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
        return self.first_name or self.email.split('@')[0]
     
-    def create_game_manager(self):
-        self.game_manager = GameManager(self)
+    def bind_to_game(self):
+        self.GAME_MANAGER.bind_user(self)
+
+    def get_game_manager(self):
+        return self.GAME_MANAGER
