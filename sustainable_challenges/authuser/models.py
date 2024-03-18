@@ -2,6 +2,7 @@ from typing import Any
 from django.db import models
 from django.contrib.auth.models import UserManager, AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
+from game.models import GameManager
 
 #CustomerUserManager used to create our types of users, extends the base UserManager
 class CustomUserManager(UserManager):
@@ -17,6 +18,8 @@ class CustomUserManager(UserManager):
         user = self.model(email=email, **kwargs)
         #Sets the password for the user
         user.set_password(password)
+
+        user.create_game_manager()
         #Saves the user to out database
         user.save(using=self._db)
 
@@ -44,10 +47,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True, default="")
     first_name = models.CharField(max_length=30, default="")
     last_name = models.CharField(max_length=30, default="")
-    
+
     points = models.IntegerField(default=0)
-    level = models.IntegerField(default = 1)
-    tasks_till_next_lvl = models.IntegerField(default = 1)
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -91,3 +92,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     #Same as above, but just the first name
     def get_short_name(self):
        return self.first_name or self.email.split('@')[0]
+    
+    def create_game_manager(self):
+        self.game_manager = GameManager(self)
