@@ -90,3 +90,12 @@ def information(request, poi_id):
                                              'lat_lon': json_dict,
                                              'form': form,
                                              'is_staff': request.user.is_staff})
+
+def map(request):
+    pois = PlaceOfInterest.objects.all()
+    poi_list = []
+    for poi in pois:
+        poi_list.append({'title': poi.title, 'desc': poi.desc, 'lat': poi.lat, 'lon': poi.lon, 'id': poi.id})
+    json_dict = {'places': poi_list}
+    return render(request, 'poi/map.html', {'json_dict': json_dict,
+                                            'is_staff': request.user.is_staff})
