@@ -26,7 +26,7 @@ def submit(request: HttpRequest) -> HttpResponse | HttpResponseRedirect | HttpRe
         If HttpResponseRedirect it means that a POST request was received and some litter was reported
     '''
     if not request.user.is_staff:
-        HttpResponseForbidden()
+        return HttpResponseForbidden()
 
     submitted = False
     id = -1
@@ -47,9 +47,9 @@ def submit(request: HttpRequest) -> HttpResponse | HttpResponseRedirect | HttpRe
             id = request.GET['id']
 
     return render(request, 'poi/submit.html', {'form': form, 
-                                                  'submitted': submitted, 
-                                                  'id': id,
-                                                  'is_staff': request.user.is_staff})
+                                                'submitted': submitted, 
+                                                'id': id,
+                                                'is_staff': request.user.is_staff})
 
 def information(request, poi_id):
     poi = get_object_or_404(PlaceOfInterest, pk=poi_id)
@@ -99,3 +99,4 @@ def map(request):
     json_dict = {'places': poi_list}
     return render(request, 'poi/map.html', {'json_dict': json_dict,
                                             'is_staff': request.user.is_staff})
+
