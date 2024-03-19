@@ -10,9 +10,9 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Create Event</button>
+            <button type="submit" style="background-color: #007d69;">Create Event</button>
         </form>
-        <a href="{% url 'home' %}" class="back-button">Back to Home</a>
+        <a href="{% url 'home' %}" class="back-button" style="background-color: #007d69;">Back to Home</a>
     </div>
 </div>
 {% endblock %}

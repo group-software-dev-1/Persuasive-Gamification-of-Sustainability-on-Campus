@@ -37,7 +37,7 @@ class GameManager:
 
             return self._current_level.get_number(), self._points, self._current_level.get_tasks()
         else:
-            return self._current_level.get_number(), self._points, self._current_level.get_tasks()
+            return self._current_level.get_number(), self._points + 50, self._current_level.get_tasks()
 
 class Level:
     

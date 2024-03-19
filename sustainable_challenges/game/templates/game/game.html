@@ -12,10 +12,10 @@
             <div class="card-header">Level {{current_context.number}}</div>
             <div class="card-body">
                 {% if current_context.name == "saving"%}
-                <h5 class="card-title">Use study space during the day</h5>
-                <p class="card-text">Use study space {{current_context.tasks}} times for {{current_context.points}}
+                <h5 class="card-title">Attend an event</h5>
+                <p class="card-text">Attend {{current_context.tasks}} events for {{current_context.points}}
                     points</p>
-                <a href="" class="btn" style="background-color: #007d69;">Submit</a>
+                <a href="/study_area/event/" class="btn" style="background-color: #007d69;">Find Event</a>
                 {% elif current_context.name == "interest"%}
                 <h5 class="card-title">Visit a place of interest </h5>
                 <p class="card-text">Visit a place of interest {{current_context.tasks}} times for
@@ -38,8 +38,8 @@
                 <div class="card-header">Level {{level_context.number}}</div>
                 <div class="card-body">
                     {% if level_context.name == "saving"%}
-                    <h5 class="card-title">Use study space during the day</h5>
-                    <p class="card-text">Use study space {{level_context.tasks}} times for {{level_context.points}}
+                    <h5 class="card-title">Attend an event</h5>
+                    <p class="card-text">Attend {{current_context.tasks}} events for {{current_context.points}}
                         points</p>
                     {% elif level_context.name == "interest"%}
                     <h5 class="card-title">Visit a place of interest </h5>

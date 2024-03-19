@@ -11,23 +11,23 @@
             <p style="color: black;">Description: {{ event.description }}</p>
             <p style="color: black;">Start Time: {{ event.date_time }}</p>
             {% if event_state == 0 %}
-                <p style="color: black;">Event hasn't started yet.</p>
+            <p style="color: black;">Event hasn't started yet.</p>
             {% endif %}
             {% if event_state == 1 %}
-                <p style="color: black;">Event is ongoing.</p>
-                {% if user.username in attendees %}
-                    <p style="color: black;">You have attended the event, points have been rewarded. Enjoy the Event!</p>
-                {% else %}
-                    <form method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="username" value="{{ user.username }}">
-                        <input type="hidden" name="code" value="attend">
-                        <button type="submit" class="btn btn-primary">Attend Event</button>
-                    </form>
-                {% endif %}
+            <p style="color: black;">Event is ongoing.</p>
+            {% if user.username in attendees %}
+            <p style="color: black;">You have attended the event, points have been rewarded. Enjoy the Event!</p>
+            {% else %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="username" value="{{ user.username }}">
+                <input type="hidden" name="code" value="attend">
+                <button type="submit" class="btn" style="background-color: #007d69;">Attend Event</button>
+            </form>
+            {% endif %}
             {% endif %}
             {% if event_state == 2 %}
-                <p style="color: black;">Event has ended.</p>
+            <p style="color: black;">Event has ended.</p>
             {% endif %}
         </div>
     </div>
@@ -37,17 +37,18 @@
     <div class="row justify-content-between">
         <div class="col-auto">
             {% if is_staff %}
-                <div class="container">
-                    <form method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="code" value="renew">
-                        <button type="submit" class="btn btn-primary">Renew event ip - make sure you are in center of venue</button>
-                    </form>
-                </div>
+            <div class="container">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="code" value="renew">
+                    <button type="submit" class="btn" style="background-color: #007d69;">Renew event ip - make sure you
+                        are in center of venue</button>
+                </form>
+            </div>
             {% endif %}
         </div>
         <div class="col-auto">
-            <a href="{% url 'event' %}" class="btn btn-primary">Return to Events</a>
+            <a href="{% url 'event' %}" class="btn" style="background-color: #007d69;">Return to Events</a>
         </div>
     </div>
 </div>

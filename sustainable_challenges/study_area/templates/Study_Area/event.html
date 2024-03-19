@@ -10,15 +10,16 @@
 
         <div class="event-container" style="flex: 1;">
             <h2 style="background-color: #007d69; color: #fff; padding: 10px;">Upcoming events</h2>
-            <p style="color: #007d69; font-size: smaller; padding-left: 10px; text-align: center;">When at location, click name to attend</p>
+            <p style="color: #007d69; font-size: smaller; padding-left: 10px; text-align: center;">When at location,
+                click name to attend</p>
             <div class="event-list" style="height: 60vh; overflow-y: auto;">
                 {% for event in upcoming_events %}
-                <div class="event-box" style="border: 1px solid #ddd; background-color: #fff; padding: 10px; margin-top: 10px;">
+                <div class="event-box"
+                    style="border: 1px solid #ddd; background-color: #fff; padding: 10px; margin-top: 10px;">
                     <strong><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></strong><br>
                     <p style="color: black;"><strong>Date and Time:</strong> {{ event.date_time|date:"F j, Y H:i" }}</p>
                     <p style="color: black;"><strong>Location:</strong> {{ event.location }}</p>
                     <p style="color: black;"><strong>Duration:</strong> {{ event.duration }}</p>
-                    <p style="color: black;"><strong>Points Worth:</strong> {{ event.points_worth }}</p>
                     <p style="color: black;"><strong>Description:</strong> {{ event.description }}</p>
                 </div>
                 {% endfor %}
@@ -27,15 +28,16 @@
 
         <div class="event-container" style="flex: 1;">
             <h2 style="background-color: #007d69; color: #fff; padding: 10px;">Current events</h2>
-            <p style="color: #007d69; font-size: smaller; padding-left: 10px; text-align: center;">Click the name to attend</p>
+            <p style="color: #007d69; font-size: smaller; padding-left: 10px; text-align: center;">Click the name to
+                attend</p>
             <div class="event-list" style="height: 60vh; overflow-y: auto;">
                 {% for event in current_events %}
-                <div class="event-box" style="border: 1px solid #ddd; background-color: #fff; padding: 10px; margin-top: 10px;">
+                <div class="event-box"
+                    style="border: 1px solid #ddd; background-color: #fff; padding: 10px; margin-top: 10px;">
                     <strong><a href="{% url 'event_detail' event.id %}">{{ event.name }}</a></strong><br>
                     <p style="color: black;"><strong>Date and Time:</strong> {{ event.date_time|date:"F j, Y H:i" }}</p>
                     <p style="color: black;"><strong>Location:</strong> {{ event.location }}</p>
                     <p style="color: black;"><strong>End Time:</strong> {{ event.end_time|date:"F j, Y H:i" }}</p>
-                    <p style="color: black;"><strong>Points Worth:</strong> {{ event.points_worth }}</p>
                     <p style="color: black;"><strong>Description:</strong> {{ event.description }}</p>
                 </div>
                 {% endfor %}
@@ -45,7 +47,7 @@
     </div>
 
     <div class="buttons" style="margin-top: 20px; text-align: center;">
-        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+        <a href="{% url 'home' %}" class="btn" style="background-color: #007d69;">Back to Home</a>
         {% if user.is_staff %}
         <a href="/study_area/create_event" class="btn btn-secondary">Create Event</a>
         {% endif %}
@@ -53,4 +55,3 @@
 </div>
 
 {% endblock %}
-

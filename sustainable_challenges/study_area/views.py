@@ -94,7 +94,7 @@ def event_detail(request, event_id):
                 
                 #then gets the user object with matching username and awards them the points associated with the event
                 user = User.objects.get(username=username)
-                user.points += event.points_worth
+                user.complete_task('saving')
                 user.save()
         
         #after redirects them back to the same event page
