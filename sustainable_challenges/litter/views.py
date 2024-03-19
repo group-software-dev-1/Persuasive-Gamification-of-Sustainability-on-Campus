@@ -85,6 +85,8 @@ def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpRespo
         if form.is_valid():
             _instance.approved = form.cleaned_data['options']
             _instance.save()
+            if _instance.approved == "1":
+                _instance.user.complete_task('litter')
             return HttpResponseRedirect(f'/litter/instance/{_instance.id}?submitted=True')
     else:
         form = ApproveForm
