@@ -94,7 +94,7 @@ def information(request: HttpRequest, poi_id: int) -> HttpResponse | HttpRespons
             if lat_delta <= 0.001 and lon_delta <= 0.001:  # 111 meter difference between user location and poi location
                 close = True
                 VisitedPlaceOfInterest.objects.create(user=request.user, place=poi)
-
+                request.user.complete_task("interest")
             return HttpResponseRedirect(f'/poi/info/{poi_id}?submitted=True&close={close}')
     else:
         form = LocationForm

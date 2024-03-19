@@ -20,12 +20,12 @@
                 <h5 class="card-title">Visit a place of interest </h5>
                 <p class="card-text">Visit a place of interest {{current_context.tasks}} times for
                     {{current_context.points}} points</p>
-                <a href="" class="btn" style="background-color: #007d69;">Submit</a>
+                <a href="/poi/map" class="btn" style="background-color: #007d69;">View map</a>
                 {% else %}
                 <h5 class="card-title">Pick up some litter</h5>
                 <p class="card-text">Find {{current_context.tasks}} pieces of litter take a photo then submit by
                     clicking button below for {{current_context.points}} points</p>
-                <a href="/litter/report" class="btn" style="background-color: #007d69;">Submit</a>
+                <a href="/litter/report" class="btn" style="background-color: #007d69;">Submit Photo</a>
                 {% endif %}
             </div>
         </div>
