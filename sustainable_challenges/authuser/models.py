@@ -19,7 +19,6 @@ class CustomUserManager(UserManager):
         #Sets the password for the user
         user.set_password(password)
 
-        user.create_game_manager()
         #Saves the user to out database
         user.save(using=self._db)
 
@@ -49,6 +48,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=30, default="")
 
     points = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
+    tasks_till_next = models.IntegerField(default=1)
+    GAME_MANAGER = None
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -63,8 +65,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
-
-    GAME_MANAGER = GameManager()
 
     #Relationship model with group
     groups = models.ManyToManyField(
@@ -94,9 +94,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     #Same as above, but just the first name
     def get_short_name(self):
        return self.first_name or self.email.split('@')[0]
-    
-    def bind_to_game(self):
-        self.GAME_MANAGER.bind_user(self)
 
     def get_game_manager(self):
+        if self.GAME_MANAGER is None:
+            self.GAME_MANAGER = GameManager(self.points, self.level, self.tasks_till_next)
         return self.GAME_MANAGER
+    
+    def complete_task(self, task):
+        if self.GAME_MANAGER is None:
+            self.GAME_MANAGER = GameManager(self.points, self.level, self.tasks_till_next)
+        self.level, self.points, self.tasks_till_next = self.GAME_MANAGER.complete_task(task)
+        self.save()

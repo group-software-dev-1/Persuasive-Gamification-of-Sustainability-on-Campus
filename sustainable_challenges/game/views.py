@@ -5,8 +5,9 @@ def game(request):
     This function renders the game page
     """
     user = request.user  # Retrieve the current logged-in user
-    print(dir(user))
-    current_level = user.get_game_manager().get_current_level()
+    game_manager = user.get_game_manager()
+    user.complete_task('litter')
+    current_level = game_manager.get_current_level()
     current_context = {'name':current_level.get_name(), 'tasks':current_level.get_tasks(), 'points':current_level.get_points(), 'number':current_level.get_number()}
 
     level_contexts = []
