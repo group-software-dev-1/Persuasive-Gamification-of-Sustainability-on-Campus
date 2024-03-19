@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5)llgiq48)y_fis)5*4%iek=^y4@g7%yo62en@a7=h@#gysgxw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'authuser',
+    'study_area',
     'home',
     'game',
     'forum',
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sustainable_challenges.middleware.RouterAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'sustainable_challenges.urls'
