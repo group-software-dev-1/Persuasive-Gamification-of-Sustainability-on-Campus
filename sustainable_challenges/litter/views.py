@@ -6,8 +6,9 @@ from django.urls import reverse
 from django.utils import timezone
 from .forms import InstanceForm, ApproveForm, TimeRangeForm
 from json import dumps
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def latest(request: HttpRequest) -> HttpResponse:
     '''
     Endpoint for displaying a list (in date order) of instances that need approving/rejecting
@@ -31,7 +32,7 @@ def latest(request: HttpRequest) -> HttpResponse:
     return render(request, "litter/latest.html", {"latest_instance_list": valid_instances, 
                                                   "is_staff": request.user.is_staff})
 
-
+@login_required
 def your_instances(request: HttpRequest) -> HttpResponse:
     '''
     Endpoint for displaying a list (in date order) of instances reported by the request user
@@ -51,7 +52,7 @@ def your_instances(request: HttpRequest) -> HttpResponse:
     # Render the webpage
     return render(request, "litter/your-instances.html", {"instance_list": instance_list, 'is_staff': request.user.is_staff})
 
-    
+@login_required
 def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpResponseRedirect:
     '''
     Endpoint for displaying a single instance of litter.
@@ -98,7 +99,7 @@ def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpRespo
                                                    "requester_id": request.user.id,
                                                    "is_staff": request.user.is_staff})
 
-
+@login_required
 def report(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
     '''
     Endpoint for users to report an instance of litter on campus
@@ -143,7 +144,7 @@ def report(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
                                                   'id': id,
                                                   'is_staff': request.user.is_staff})
 
-
+@login_required
 def heatmap(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
     '''
     Endpoint for staff to view the heatmap of litter on campus.
