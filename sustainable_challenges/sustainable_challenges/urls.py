@@ -29,5 +29,6 @@ urlpatterns = [
     path('game/', include('game.urls')),
     path('account/', include('account.urls')),
     path('study_area/', include('study_area.urls')),
-    path('forum/', include('forum.urls'))
+    path('forum/', include('forum.urls')),
+    path('poi/', include('poi.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

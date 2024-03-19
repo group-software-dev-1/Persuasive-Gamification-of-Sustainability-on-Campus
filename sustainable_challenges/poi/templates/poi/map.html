@@ -1,0 +1,19 @@
+{%  extends "base.html" %}
+{% block content %}
+{% load static %}
+<script> 
+    var img_src="{% static 'loc_icon.png' %}";
+</script>
+<script src="{% static 'map.js' %}" defer></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+    #map {position: absolute; top: 80; bottom: 25; left: 25; right: 25;}
+</style>
+{{ json_dict|json_script:"places" }}
+<div class="row">
+    <div class="col-sm-12">
+        <div id="map" class=""></div>
+    </div>
+</div>
+{% endblock %}
