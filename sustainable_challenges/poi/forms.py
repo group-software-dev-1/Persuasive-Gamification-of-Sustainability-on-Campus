@@ -20,4 +20,3 @@ class LocationForm(forms.Form):
     '''
     lat = forms.DecimalField(widget=forms.NumberInput(attrs={'id':'lat_id', 'hidden': 'hidden'}), label="")
     lon = forms.DecimalField(widget=forms.NumberInput(attrs={'id':'lon_id', 'hidden': 'hidden'}), label="")
-    acc = forms.DecimalField(widget=forms.NumberInput(attrs={'id':'acc_id', 'hidden': 'hidden'}), label="")
