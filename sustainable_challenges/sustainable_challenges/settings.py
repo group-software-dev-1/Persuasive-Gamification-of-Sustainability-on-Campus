@@ -131,13 +131,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Path to the SendGrid API key file
+SENDGRID_API_KEY_FILE = os.path.join(BASE_DIR, 'API_key.txt')
+
 # Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587  # Use port 587 for TLS
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'  # Set to 'apikey'
-EMAIL_HOST_PASSWORD = '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'  # Admin SendGrid API key
+# Read the API key from the file
+with open(SENDGRID_API_KEY_FILE, 'r') as f:
+    EMAIL_HOST_PASSWORD = f.read().strip() # Admin SendGrid API key
 # EMAIL_USE_SSL = False
 
 # Default primary key field type
