@@ -235,7 +235,7 @@ class InterestLevel(Level):
     _name : String
         The name of the level
     """
-    _name = "interest"
+   _name = "interest"
 
 #Basic raffle model
 #has name of raffle, the participants as a comma seperated string, the number of participants as an int, and the points the raffle is worth

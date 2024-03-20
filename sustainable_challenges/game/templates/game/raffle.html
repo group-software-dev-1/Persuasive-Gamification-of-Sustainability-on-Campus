@@ -9,46 +9,52 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="box" style="background-color: #f2f2f2; border: 2px solid #000000; padding: 15px; margin-top: 20px;">
+                <div class="box"
+                    style="background-color: #f2f2f2; border: 2px solid #000000; padding: 15px; margin-top: 20px;">
                     <h2 style="color: black;">Daily Raffle</h2>
                     <p style="color: black;">Name: {{ daily_raffle.name }}</p>
                     <p style="color: black;">Number of Participants: {{ daily_raffle.num_participants }}</p>
                     <p style="color: black;">Points Accumulated: {{ daily_raffle.points_accumulated }}</p>
                     {% if user.username in daily_participants %}
-                        <p style="color: black;">You have already entered the Daily Raffle.</p>
+                    <p style="color: black;">You have already entered the Daily Raffle.</p>
                     {% else %}
-                        <form method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="username" value="{{ user.username }}">
-                            <input type="hidden" name="code" value="daily">
-                            <button type="submit" class="btn btn-primary">Enter Daily Raffle - Free entry</button>
-                        </form>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="username" value="{{ user.username }}">
+                        <input type="hidden" name="code" value="daily">
+                        <button type="submit" class="btn" style="background-color: #007d69;">Enter Daily Raffle - Free
+                            entry</button>
+                    </form>
                     {% endif %}
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="box" style="background-color: #f2f2f2; border: 2px solid #000000; padding: 15px; margin-top: 20px;">
+                <div class="box"
+                    style="background-color: #f2f2f2; border: 2px solid #000000; padding: 15px; margin-top: 20px;">
                     <h2 style="color: black;">Weekly Raffle</h2>
                     <p style="color: black;">Name: {{ weekly_raffle.name }}</p>
                     <p style="color: black;">Number of Participants: {{ weekly_raffle.num_participants }}</p>
                     <p style="color: black;">Points Accumulated: {{ weekly_raffle.points_accumulated }}</p>
                     {% if user.username in weekly_participants %}
-                        <p style="color: black;">You have already entered the Weekly Raffle.</p>
-                    {% elif user.points < 100 %}
-                        <p style="color: black;">You need at least 100 points to enter the Weekly Raffle.</p>
-                    {% else %}
+                    <p style="color: black;">You have already entered the Weekly Raffle.</p>
+                    {% elif user.points < 100 %} <p style="color: black;">You need at least 100 points to enter the
+                        Weekly Raffle.</p>
+                        {% else %}
                         <form method="post">
                             {% csrf_token %}
                             <input type="hidden" name="username" value="{{ user.username }}">
                             <input type="hidden" name="code" value="weekly">
-                            <button type="submit" class="btn btn-primary">Enter Weekly Raffle - 100 points</button>
+                            <button type="submit" class="btn" style="background-color: #007d69;">Enter Weekly Raffle -
+                                100 points</button>
                         </form>
-                    {% endif %}
+                        {% endif %}
                 </div>
             </div>
         </div>
-        <div class="description-box" style="background-color: #ffffff; border: 2px solid #000000; padding: 15px; margin-top: 20px;">
-            <p style="color: black;">Every user can enter each raffle 1 time. Winners will be announced at 3pm daily via the blog page. Points will be awarded directly and don't need to be claimed.</p>
+        <div class="description-box"
+            style="background-color: #ffffff; border: 2px solid #000000; padding: 15px; margin-top: 20px;">
+            <p style="color: black;">Every user can enter each raffle 1 time. Winners will be announced at 3pm daily via
+                the blog page. Points will be awarded directly and don't need to be claimed.</p>
         </div>
     </div>
 </div>
