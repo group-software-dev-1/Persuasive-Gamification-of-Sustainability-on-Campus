@@ -4,6 +4,15 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'shop.css' %}" />
 <div id="main">
+    {% if response %}
+    <div class="alert {%if success %}alert-success{%else%}alert-warning{%endif%}" role="alert">
+        {%if success%}
+        You successfully redeemed your prize an email will be sent to you
+        {%else%}
+        Insufficient points to redeem prize
+        {%endif%}
+    </div>
+    {%endif%}
     <div class="row">
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">
@@ -11,7 +20,18 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Amazon giftcard sweepstake</h5>
                     <p class="card-text">Enter amazon giftcard sweepstake</p>
-                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{points}}" aria-valuemin="0"
+                            aria-valuemax="{{prize_to_points.amazon}}"
+                            style="width:{{completion.amazon}}%;background-color: #007d69;">
+                        </div>
+                    </div>
+                    <p class="card-text">10,000 points</p>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="prize" id="prize" value="amazon" class="btn"
+                            style="background-color: #007d69;">Redeem</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -21,7 +41,18 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">John Lewis giftcard sweepstake</h5>
                     <p class="card-text">Enter John Lewis giftcard sweepstake</p>
-                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{points}}" aria-valuemin="0"
+                            aria-valuemax="{{prize_to_points.john_lewis}}"
+                            style="width:{{completion.john_lewis}}%;background-color: #007d69;">
+                        </div>
+                    </div>
+                    <p class="card-text">10,000 points</p>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="prize" id="prize" value="john_lewis" class="btn"
+                            style="background-color: #007d69;">Redeem</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -31,7 +62,18 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Blackwells giftcard</h5>
                     <p class="card-text">Cash in points for the giftcard to the University bookshop</p>
-                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{points}}" aria-valuemin="0"
+                            aria-valuemax="{{prize_to_points.blackwells}}"
+                            style="width:{{completion.blackwells}}%;background-color: #007d69;">
+                        </div>
+                    </div>
+                    <p class="card-text">50,000 points</p>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="prize" id="prize" value="blackwells" class="btn"
+                            style="background-color: #007d69;">Redeem</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -43,7 +85,18 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Ram bar discount card</h5>
                     <p class="card-text">Cash in points for the discount to the University bar</p>
-                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{points}}" aria-valuemin="0"
+                            aria-valuemax="{{prize_to_points.ram}}"
+                            style="width:{{completion.ram}}%;background-color: #007d69;">
+                        </div>
+                    </div>
+                    <p class="card-text">50,000 points</p>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="prize" id="prize" value="ram" class="btn"
+                            style="background-color: #007d69;">Redeem</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -53,7 +106,18 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Student Guild discount card</h5>
                     <p class="card-text">Cash in points for the discount at the University Student Guild</p>
-                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{points}}" aria-valuemin="0"
+                            aria-valuemax="{{prize_to_points.student_guild}}"
+                            style="width:{{completion.student_guild}}%;background-color: #007d69;">
+                        </div>
+                    </div>
+                    <p class="card-text">50,000 points</p>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="prize" id="prize" value="student_guild" class="btn"
+                            style="background-color: #007d69;">Redeem</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -63,7 +127,18 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">The Marketplace discount card</h5>
                     <p class="card-text">Cash in points for the discount to the University food shop</p>
-                    <a href="#" class="btn" style="background-color: #007d69;">Redeem</a>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{points}}" aria-valuemin="0"
+                            aria-valuemax="{{prize_to_points.marketplace}}"
+                            style="width:{{completion.marketplace}}%;background-color: #007d69;">
+                        </div>
+                    </div>
+                    <p class="card-text">50,000 points</p>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="prize" id="prize" value="marketplace" class="btn"
+                            style="background-color: #007d69;">Redeem</button>
+                    </form>
                 </div>
             </div>
         </div>
