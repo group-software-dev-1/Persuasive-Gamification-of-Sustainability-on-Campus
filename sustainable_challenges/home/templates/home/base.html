@@ -29,9 +29,6 @@
                     <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
                         <!--if user is logged in:-->
                         {% if request.user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'game:game' %}">Game</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
@@ -47,7 +44,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="studySpaceDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Points of Interests</a>
+                                data-bs-toggle="dropdown" aria-expanded="false">Places of Interests</a>
                             <ul class="dropdown-menu" aria-labelledby="studySpaceDropdown">
                                 <li><a class="dropdown-item" href="/poi/map">Map</a></li>
                                 {% if is_staff %}
