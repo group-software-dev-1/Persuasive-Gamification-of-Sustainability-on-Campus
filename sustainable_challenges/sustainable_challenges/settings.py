@@ -131,6 +131,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587  # Use port 587 for TLS
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'  # Set to 'apikey'
+EMAIL_HOST_PASSWORD = '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'  # Admin SendGrid API key
+# EMAIL_USE_SSL = False
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
