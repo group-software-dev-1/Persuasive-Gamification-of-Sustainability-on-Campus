@@ -21,3 +21,13 @@
     border-color: #007d69;
     border-radius:10px;
 }
+
+.image {
+    padding: 50px;
+    text-align: center;
+}
+
+img {
+    width: 50%;
+    height: auto;
+}
