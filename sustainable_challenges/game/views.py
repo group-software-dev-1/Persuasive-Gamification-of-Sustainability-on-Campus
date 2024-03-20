@@ -44,22 +44,32 @@ def shop(request):
     """
     This function renders the shop page
     """
+    # Initial values for response and success are set
     response = False
     success = False
+
+    # A dictionary converts prizes to points
     prize_to_points = {'amazon': 10000, 'john_lewis':10000, 'blackwells':50000, 'ram':50000, 'student_guild':50000, 'marketplace':50000}
 
+    # A check is made to see if it is a post request e.g. user trying to redeem points
     if request.method == 'POST':
+        # Response is set to true 
         response = True
+
+        # The prize and required points is retrieved
         prize = request.POST['prize']
         required_points = prize_to_points[prize]
 
         if request.user.points >= required_points:
+            # If the user has enough points success is true and points are removed
             success = True
             request.user.points -= required_points
             request.user.save()
 
+    # A dictionary is made for how complete each prize is 
     completion = {}
     for k,v in prize_to_points.items():
         completion[k] = request.user.points * 100 / v
 
+    # The page is rendered with context for the prizes 
     return render(request, "game/shop.html", {'completion':completion, 'prize_to_points':prize_to_points, 'points': request.user.points, 'success':success, 'response': response, 'is_staff': request.user.is_staff})
