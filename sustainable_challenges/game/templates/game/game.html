@@ -4,38 +4,54 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'game.css' %}" />
 <div id="main">
-    {% for i in level_numbers%}
-    {% if i == 1%}
-    <div class="card text-bg-success text-center mb-3" style="max-width: 18rem;">
-        <div class="card-header">Level 1</div>
-        <div class="card-body">
-            <h5 class="card-title">Pick up some litter</h5>
-            <p class="card-text">Find 1 piece of litter take a photo then submit by clicking button below for 100 points
-            </p>
-            <a href="litter/report" class="btn" style="background-color: #007d69;">Submit Photo</a>
-        </div>
-    </div>
-    {% elif i|divisibleby:5%}
+    {%if current_context.points == 1000%}
     <div class="card text-bg-warning text-center mb-3" style="max-width: 18rem;">
-        <div class="card-header">Level {{i}}</div>
-        <div class="card-body">
-            <h5 class="card-title">Pick up some litter</h5>
-            <p class="card-text">Find 5 pieces of litter take a photo then submit by clicking button below for 100
-                points</p>
-            <a href="#" class="btn" style="background-color: #FFD700;">Submit Photo</a>
+        {%else%}
+        <div class="card text-bg-success text-center mb-3" style="max-width: 18rem;">
+            {%endif%}
+            <div class="card-header">Level {{current_context.number}}</div>
+            <div class="card-body">
+                {% if current_context.name == "saving"%}
+                <h5 class="card-title">Attend an event</h5>
+                <p class="card-text">Attend {{current_context.tasks}} events for {{current_context.points}}
+                    points</p>
+                <a href="/study_area/event/" class="btn" style="background-color: #007d69;">Find Event</a>
+                {% elif current_context.name == "interest"%}
+                <h5 class="card-title">Visit a place of interest </h5>
+                <p class="card-text">Visit a place of interest {{current_context.tasks}} times for
+                    {{current_context.points}} points</p>
+                <a href="/poi/map" class="btn" style="background-color: #007d69;">View map</a>
+                {% else %}
+                <h5 class="card-title">Pick up some litter</h5>
+                <p class="card-text">Find {{current_context.tasks}} pieces of litter take a photo then submit by
+                    clicking button below for {{current_context.points}} points</p>
+                <a href="/litter/report" class="btn" style="background-color: #007d69;">Submit Photo</a>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    {%else%}
-    <div class="card text-bg-secondary text-center mb-3" style="max-width: 18rem;">
-        <div class="card-header">Level {{i}}</div>
-        <div class="card-body">
-            <h5 class="card-title">Pick up some litter</h5>
-            <p class="card-text">Find 1 piece of litter take a photo then submit by clicking button below for 100 points
-            </p>
-            <a href="#" class="btn" style="background-color: #5c636a;">Submit Photo</a>
+        {% for level_context in level_contexts%}
+        {%if level_context.points == 1000%}
+        <div class="card text-bg-warning text-center mb-3" style="max-width: 18rem;">
+            {%else%}
+            <div class="card text-bg-secondary text-center mb-3" style="max-width: 18rem;">
+                {%endif%}
+                <div class="card-header">Level {{level_context.number}}</div>
+                <div class="card-body">
+                    {% if level_context.name == "saving"%}
+                    <h5 class="card-title">Attend an event</h5>
+                    <p class="card-text">Attend {{current_context.tasks}} events for {{current_context.points}}
+                        points</p>
+                    {% elif level_context.name == "interest"%}
+                    <h5 class="card-title">Visit a place of interest </h5>
+                    <p class="card-text">Visit a place of interest {{level_context.tasks}} times for
+                        {{level_context.points}} points</p>
+                    {% else %}
+                    <h5 class="card-title">Pick up some litter</h5>
+                    <p class="card-text">Find {{level_context.tasks}} pieces of litter for {{level_context.points}}
+                        points</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-    </div>
-    {%endif%}
-    {% endfor %}
-</div>
-{%endblock%}
+        {%endblock%}

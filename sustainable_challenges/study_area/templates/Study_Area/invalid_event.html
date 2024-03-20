@@ -1,0 +1,14 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+<div class="container welcome">
+    <div class="badge text-wrap" style="background-color: #007d69;">
+        <h1>Invalid Event ID</h1>
+        <p>The event you are trying to access does not exist or has been closed</p>
+    </div>
+    <br />
+    <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
+</div>
+{% endblock %}
