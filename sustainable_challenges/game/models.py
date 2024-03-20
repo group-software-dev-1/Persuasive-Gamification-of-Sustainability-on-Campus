@@ -221,7 +221,7 @@ class SavingLevel(Level):
     _name = "saving"
 
 class InterestLevel(Level):
-    """
+   """
     Point of Interest Level for the user to complete
 
     Fields
@@ -236,3 +236,14 @@ class InterestLevel(Level):
         The name of the level
     """
     _name = "interest"
+
+#Basic raffle model
+#has name of raffle, the participants as a comma seperated string, the number of participants as an int, and the points the raffle is worth
+class Raffle(models.Model):
+    name = models.CharField(max_length=100)
+    participants = models.TextField(blank=True)
+    num_participants = models.IntegerField(default=0)
+    points_accumulated = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
