@@ -44,6 +44,16 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="studySpaceDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Points of Interests</a>
+                            <ul class="dropdown-menu" aria-labelledby="studySpaceDropdown">
+                                <li><a class="dropdown-item" href="/poi/map">Map</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="/poi/submit">Create</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studySpaceDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Events</a>
                             <ul class="dropdown-menu" aria-labelledby="studySpaceDropdown">
                                 <li><a class="dropdown-item" href="{% url 'home' %}">Home</a></li>
