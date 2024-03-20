@@ -1,34 +1,55 @@
 {%  extends "base.html" %}
 {% block content %}
 {% if is_staff or requester_id == instance.user_id %}
-    <p>{{instance}}</p>
-    {% if instance.approved == 0 %}
-        <p>Status: Pending</p>
-    {% elif instance.approved == 1 %}
-        <p>Status: Approved</p>
-    {% elif instance.approved == 2 %}
-        <p>Status: Rejected</p>
-    {% endif %}
-    {% if instance.img %}
-        <img src="{{ instance.img.url }}" width="500">
-    {% endif %}
-    {% if is_staff %}
-        <br/>
-        {% if submitted %}
-            Litter instance updated succefully.
-            <br/>
-        {% elif instance.approved == 0 %}
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                
-                <input type="submit" value="Submit">
-            </form>
-        {% endif %}       
-    {% endif %}
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 justify-content-center align-items-center">
+            <div class="d-flex flex-column h-100">
+                <ul class="list-group border border-secondary">
+                    <li class="list-group-item list-group-item-dark text-center text-black"><strong>NAME</strong></li>
+                    <li class="list-group-item text-center">{{instance.user.username}}</li>
+                    <li class="list-group-item list-group-item-dark text-center text-black"><strong>DATETIME</strong></li>
+                    <li class="list-group-item text-center">{{instance.datetime}}</li>
+                    <li class="list-group-item list-group-item-dark text-center text-black"><strong>LATITUDE, LONGITUDE</strong></li>
+                    <li class="list-group-item text-center">{{instance.lat}}, {{instance.lon}}</li>
+                    <li class="list-group-item list-group-item-dark text-center text-black"><strong>STATUS</strong></li>
+                    <li class="list-group-item text-center">
+                        {% if instance.approved == 0 %}
+                            <p>Status: Pending</p>
+                        {% elif instance.approved == 1 %}
+                            <p>Status: Approved</p>
+                        {% elif instance.approved == 2 %}
+                            <p>Status: Rejected</p>
+                        {% endif %}
+                    </li>
+                </ul>
+        
+                {% if is_staff %}
+                    <br/>
+                    {% if submitted %}
+                        Litter instance updated succefully.
+                        <br/>
+                    {% elif instance.approved == 0 and requester_id != instance.user_id %}
+                        <div class="d-flex align-items-end h-100">
+                            <form class="d-flex justify-content-center w-100" action="" method="POST">
+                                {% csrf_token %}
+                                <div class="m-2">{{ form.as_p }}</div>
+                                <div class="m-2"><button type="submit" class="btn btn-danger">Submit</button></div>
+                            </form>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
+        {% if instance.img %}
+            <div class="container-fluid p-4 border border-secondary bg-white d-flex justify-content-center rounded">
+                <img class="img-fluid" src="{{ instance.img.url }}" width="500"/>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+    
 {% else %}
     <p>You do not have permission to view this instance</p>
 {% endif %}
-<br/>
-<a href="{% url 'litter:latest' %}">Back</a>
 {% endblock %}

@@ -11,64 +11,119 @@
         crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="icon" href="{% static 'favicon.png' %}">
     {% endblock %}
 </head>
 
 <body style="background-color: #007d69; padding-top: 100px;">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #007d69">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="/">Sustainable Challenges</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
-                    <!--if user is logged in:-->
-                    {% if request.user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/litter/report">Submit Report</a></li>
-                            <li><a class="dropdown-item" href="/litter/your-instances">Your Reports</a></li>
-                            {% if is_staff %}
-                            <li><a class="dropdown-item" href="/litter/latest">Latest</a></li>
-                            <li><a class="dropdown-item" href="/litter/heatmap">Litter Heatmap</a></li>
-                            {% endif %}
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/game">Game</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/game/shop">Shop</a>
-                    </li>
-                    {% if is_staff %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/account/admin_account">Account</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/account/user_account">Account</a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login/logout">Logout</a>
-                    </li>
-                    <!--if user is not logged in-->
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Log in</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login/register">Sign up</a>
-                    </li>
-                    {% endif %}
-                </ul>
-          </div>
-        </div>
-      </nav>
-    {% block content %}
-    {% endblock %}
+    <div class="container-fluid">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #007d69">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="/">Sustainable Challenges</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
+                        <!--if user is logged in:-->
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'game:game' %}">Game</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'litter:report' %}">Submit Report</a></li>
+                                <li><a class="dropdown-item" href="{% url 'litter:your instances' %}">Your Reports</a>
+                                </li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'litter:latest' %}">Latest</a></li>
+                                <li><a class="dropdown-item" href="{% url 'litter:heatmap' %}">Litter Heatmap</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studySpaceDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Points of Interests</a>
+                            <ul class="dropdown-menu" aria-labelledby="studySpaceDropdown">
+                                <li><a class="dropdown-item" href="/poi/map">Map</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="/poi/submit">Create</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studySpaceDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Events</a>
+                            <ul class="dropdown-menu" aria-labelledby="studySpaceDropdown">
+                                <li><a class="dropdown-item" href="{% url 'home' %}">Home</a></li>
+                                <li><a class="dropdown-item" href="{% url 'event' %}">Events</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'create_event' %}">Create</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Forum</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/forum/forum">Posts</a></li>
+                                <li><a class="dropdown-item" href="/forum/post">Make a post</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="/forum/announcement">Make announcement</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'game:game' %}">Game</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="shopRaffleDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="shopRaffleDropdown">
+                                <li><a class="dropdown-item" href="{% url 'game:shop' %}">Point Shop</a></li>
+                                <li><a class="dropdown-item" href="{% url 'game:raffle' %}">Raffle</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">About us</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'home:goals' %}">Our goals</a></li>
+                                <li><a class="dropdown-item" href="{% url 'home:privacy' %}">Privacy policy</a></li>
+                            </ul>
+                        </li>
+                        {% if is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account:admin_account' %}">Account</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account:user_account' %}">Account</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/logout">Logout</a>
+                        </li>
+                        <!--if user is not logged in-->
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/register">Sign up</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 
 </html>

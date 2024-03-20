@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+<div class="container welcome">
+    <h1>Create Event</h1>
+    <br />
+    <div class="badge text-wrap" style="background-color: #007d69;">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" style="background-color: #007d69;">Create Event</button>
+        </form>
+        <a href="{% url 'home' %}" class="back-button" style="background-color: #007d69;">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
