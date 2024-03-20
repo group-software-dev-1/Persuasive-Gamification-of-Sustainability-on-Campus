@@ -6,7 +6,6 @@ from datetime import timedelta
 #description - the description
 #date_time - time the event is occuring
 #duration - the duration of the event
-#points_worth - the points the event is worth
 #router_ip - the ip of the internet access point at the event, can be updated by admins if it renews
 #location - location of the event
 #attendees - the username of the people that attend the event

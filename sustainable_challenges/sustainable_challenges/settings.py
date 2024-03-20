@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'sustainable_challenges.middleware.RouterAccessMiddleware',
+    'sustainable_challenges.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'sustainable_challenges.urls'
