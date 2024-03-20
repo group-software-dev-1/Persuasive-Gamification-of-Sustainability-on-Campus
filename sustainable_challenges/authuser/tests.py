@@ -3,6 +3,7 @@ from authuser.forms import RegistrationForm, LoginForm
 from authuser.models import User
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from game.models import GameManager
 
 class RegistrationFormTest(TestCase):
 
@@ -105,6 +106,24 @@ class UserModelTest(TestCase):
     def test_user_string_representation(self):
         user = User.objects.create_user(**self.user_data)
         self.assertEqual(str(user), self.user_data['email'])
+
+    def test_get_game_manager(self):
+        """
+        Tests getter for game manger
+        """
+        user = User.objects.create_user(**self.user_data)
+        manger = user.get_game_manager()
+        self.assertTrue(isinstance(manger, GameManager))
+
+    def test_complete_task(self):
+        """
+        Test completion of a task
+        """
+        user = User.objects.create_user(**self.user_data)
+        user.complete_task('litter')
+        self.assertEqual(2, user.level)
+        self.assertEqual(200, user.points)
+        self.assertEqual(1, user.tasks_till_next)
 
 class AuthuserViewsTest(TestCase):
     def setUp(self):
