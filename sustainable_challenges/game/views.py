@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.core.mail import send_mail
 
 from .models import Raffle
 
@@ -67,6 +68,10 @@ def shop(request):
             success = True
             request.user.points -= required_points
             request.user.save()
+            # Send user an email with there prize
+            subject = "Congrats You Won!"
+            message = "Well done on getting {} points and redeeming your prize. \n Here is the code to redeem your prize: ABCD-1EF2GH-IJ123".format(required_points)
+            send_mail(subject, message, 'Group.Software.Dev.Help@gmail.com', [request.user.email])
 
     # A dictionary is made for how complete each prize is 
     completion = {}

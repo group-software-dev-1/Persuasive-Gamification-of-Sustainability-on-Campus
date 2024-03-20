@@ -59,7 +59,8 @@ class LoginRequiredMiddleware:
         excluded_paths = [
             '/login/',      
             '/login/register/',   
-            '/',            
+            '/',
+            '/account/reset_email/',            
         ]
         return path in excluded_paths
 
