@@ -1,0 +1,71 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+
+<div class="container welcome">
+    <div class="large-box" style="background-color: #f2f2f2; border: 4px solid #000000; padding: 10px;">
+
+        <div class="header-box" style="background-color: #f2f2f2; border-bottom: 4px solid #000000; padding: 10px;">
+            <h1 style="color: black;">Welcome to Events</h1>
+        </div>
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/media/images/study_area/image1.jpg" alt="Image 1" style="width: 55%; height: auto;">
+                </div>
+                <div class="carousel-item">
+                    <img src="/media/images/study_area/image2.jpg" alt="Image 2" style="width: 55%; height: auto;">
+                </div>
+                <div class="carousel-item">
+                    <img src="/media/images/study_area/image3.jpg" alt="Image 3" style="width: 55%; height: auto;">
+                </div>
+
+
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleSlidesOnly"
+                data-bs-slide="prev" style="color: black;">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: black;"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleSlidesOnly"
+                data-bs-slide="next" style="color: black;">
+                <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: black;"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+        </div>
+
+        <div class="description-box"
+            style="background-color: #ffffff; border: 2px solid #000000; padding: 15px; margin-top: 20px;">
+            <p style="color: black;">On the Event page, we will be providing events that players can visit and
+                participate in to earn points. The events will be located near/around campus and will be related to
+                reducing the carbon impact of the universirty to 0. Some of these events may include, location
+                blackouts, informative speeches and gatherings of like minded individuals. To participate please click
+                on the button below to be taken to the events page, where you can see all upcoming and ongoing events.
+            </p>
+        </div>
+
+        <div class="buttons">
+            <a href="/study_area/event" class="btn" style="background-color: #007d69;">Join Event</a>
+            {% if user.is_staff %}
+            <a href="/study_area/create_event" class="btn btn-secondary">Create Event</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#carouselExampleSlidesOnly').carousel();
+        $('#carouselExampleSlidesOnly').carousel({
+            interval: 3000
+        });
+    });
+</script>
+{% endblock %}

@@ -21,8 +21,8 @@
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold" href="/">Sustainable Challenges</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -37,10 +37,32 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                                 <li><a class="dropdown-item" href="{% url 'litter:report' %}">Submit Report</a></li>
-                                <li><a class="dropdown-item" href="{% url 'litter:your instances' %}">Your Reports</a></li>
+                                <li><a class="dropdown-item" href="{% url 'litter:your instances' %}">Your Reports</a>
+                                </li>
                                 {% if is_staff %}
                                 <li><a class="dropdown-item" href="{% url 'litter:latest' %}">Latest</a></li>
                                 <li><a class="dropdown-item" href="{% url 'litter:heatmap' %}">Litter Heatmap</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studySpaceDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Points of Interests</a>
+                            <ul class="dropdown-menu" aria-labelledby="studySpaceDropdown">
+                                <li><a class="dropdown-item" href="/poi/map">Map</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="/poi/submit">Create</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="studySpaceDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Events</a>
+                            <ul class="dropdown-menu" aria-labelledby="studySpaceDropdown">
+                                <li><a class="dropdown-item" href="{% url 'home' %}">Home</a></li>
+                                <li><a class="dropdown-item" href="{% url 'event' %}">Events</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'create_event' %}">Create</a></li>
                                 {% endif %}
                             </ul>
                         </li>
@@ -56,7 +78,15 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'game:shop' %}">Shop</a>
+                            <a class="nav-link" href="{% url 'game:game' %}">Game</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="shopRaffleDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="shopRaffleDropdown">
+                                <li><a class="dropdown-item" href="{% url 'game:shop' %}">Point Shop</a></li>
+                                <li><a class="dropdown-item" href="{% url 'game:raffle' %}">Raffle</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"

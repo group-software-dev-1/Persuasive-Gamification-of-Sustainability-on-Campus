@@ -1,0 +1,12 @@
+{% extends 'home/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Restricted Access</h4>
+        <p>You do not have permission to access this page.</p>
+        <hr>
+        <p class="mb-0">If you are at the event location and are still seeing this message, post a message on the forum for an admin's help</p>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
+</div>
+{% endblock %}
