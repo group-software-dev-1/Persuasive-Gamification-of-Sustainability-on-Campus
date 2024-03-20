@@ -1,0 +1,49 @@
+{%  extends "base.html" %}
+{% block content %}
+{% if instance_list %}
+    <div class="row">
+        <div class="col col-sm-12 text-center "><h1>Your Instances</h1></div>
+    </div>
+    <div class="row justify-content-md-center">
+        <ul class="col col-sm-12 list-group p-2 col-lg-5">
+            <li class="list-group-item">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col col-sm-9 col-md-8 text-center">Datetime</div>
+                        <!-- <div class="col col-sm-3 text-center">lat lon</div> -->
+                        <div class="col col-sm-2 col-md-2 text-center">Status</div>
+                        <div class="col col-sm-1 col-md-2 text-center">Instance</div>
+                    </div>
+                </div>
+            </li>
+            {% for instance in instance_list %}
+                <li class="list-group-item">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col col-sm-9 col-md-8 text-center d-flex align-items-center justify-content-center">{{instance.datetime}}</div>   
+                            <!-- <div class="col col-sm-3 text-center">{{instance.lat}}, {{instance.lon}}</div> -->
+                            <div class="col col-sm-2 col-md-2 text-center d-flex align-items-center justify-content-center">
+                                {% if instance.approved == 0 %}
+                                    <span class="border border-dark py-3 px-3 bg-warning"></span>
+                                {% elif instance.approved == 1 %}
+                                    <span class="border border-dark py-3 px-3 bg-success"></span>
+                                {% elif instance.approved == 2 %}
+                                    <span class="border border-dark py-3 px-3 bg-danger"></span>
+                                {% endif %}
+                            </div>
+                            <div class="col col-sm-1 col-md-2 text-center d-flex align-items-center justify-content-center"><a role="button" class="btn btn-outline-secondary" href="{% url 'litter:instance' instance.id %}">View</a></div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <p>No instances are available.</p>
+{% endif %}
+<div class="row">
+    <div class="col col-sm-12 text-center d-column">
+        <a role="button" class="btn btn-danger" href="{% url 'litter:report' %}">Report Litter</a>
+    </div>
+</div>
+{% endblock %}

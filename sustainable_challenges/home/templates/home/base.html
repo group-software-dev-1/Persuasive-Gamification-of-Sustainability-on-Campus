@@ -1,6 +1,7 @@
 <html lang - "en">
 
 <head>
+    {% block head %}
     <title>Sustainable Challenges</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -10,31 +11,84 @@
         crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #007d69;">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="/">Sustainable Challenges</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Log in</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link">Prize Shop</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    {% endblock %}
 </head>
 
-<body style="background-color: #007d69;">
-    {% block content %}
-    {% endblock %}
+<body style="background-color: #007d69; padding-top: 100px;">
+    <div class="container-fluid">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #007d69">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="/">Sustainable Challenges</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
+                        <!--if user is logged in:-->
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'litter:report' %}">Submit Report</a></li>
+                                <li><a class="dropdown-item" href="{% url 'litter:your instances' %}">Your Reports</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'litter:latest' %}">Latest</a></li>
+                                <li><a class="dropdown-item" href="{% url 'litter:heatmap' %}">Litter Heatmap</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Forum</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="/forum/forum">Posts</a></li>
+                                <li><a class="dropdown-item" href="/forum/post">Make a post</a></li>
+                                {% if is_staff %}
+                                <li><a class="dropdown-item" href="/forum/announcement">Make announcement</a></li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'game:game' %}">Game</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'game:shop' %}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Forum</a>
+                        </li>
+                        {% if is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account:admin_account' %}">Account</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account:user_account' %}">Account</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/logout">Logout</a>
+                        </li>
+                        <!--if user is not logged in-->
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/register">Sign up</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 
 </html>

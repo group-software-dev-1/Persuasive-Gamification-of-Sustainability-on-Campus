@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = "/login/"
 
 # Application definition
 
@@ -39,10 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
     'authuser',
-    'accounts',
     'home',
-    'game'
+    'game',
+    'forum',
+    'poi',
 ]
 
 AUTH_USER_MODEL = 'authuser.User'
@@ -142,6 +145,4 @@ STATICFILES_DIRS = (
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.CustomEmailBackend',
-
 ]

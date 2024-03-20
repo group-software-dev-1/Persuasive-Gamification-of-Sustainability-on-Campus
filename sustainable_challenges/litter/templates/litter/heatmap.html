@@ -5,16 +5,37 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="..\..\static\Leaflet.heat-gh-pages\dist\leaflet-heat.js" type="text/javascript"></script>
 <style>
-    #map {position: absolute; top: 100; bottom: 50; left: 100; right: 100;}
+    #map {position: absolute; top: 200; bottom: 50; left: 100; right: 100;}
 </style>
 
-<div id="map"></div>
+<div class="row">
+    <div class="col-sm-12 align-items-center">
+        <form class="d-flex justify-content-center align-items-center h-100" action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success mb-3 mx-2">Submit</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="map" class=""></div>
+    </div>
+</div>
+
+
+
 <script>
     var map = L.map('map').setView([50.735214, -3.531754], 15);
-    L.tileLayer('https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}@2x.jpg?key=5CproNoEKyotlpqU4SO8', {
-        attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+    // L.tileLayer('https://api.maptiler.com/maps/openstreetmap/{z}/{x}/{y}@2x.jpg?key=5CproNoEKyotlpqU4SO8', {
+    //     attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+    //     tileSize: 512,
+    //     zoomOffset: -1,}).addTo(map);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Maps <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
         tileSize: 512,
-        zoomOffset: -1,}).addTo(map);
+        zoomOffset: -1,
+    pixelRatio:1,}).addTo(map);
     
     var data = JSON.parse("{{data}}");
     var heat = L.heatLayer(data, {radius: 25, minOpacity: 0.4, gradient: {0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
@@ -22,6 +43,4 @@
 {% else %}
 <p>You do not have permission to view this</p>
 {% endif %}
-<br/>
-<a href="{% url 'litter:latest' %}">Back</a>
 {% endblock %}

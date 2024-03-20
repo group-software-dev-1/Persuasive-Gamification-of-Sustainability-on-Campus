@@ -1,0 +1,17 @@
+{% extends 'home/base.html'%}
+
+{%block content%}
+{% load static %}
+{% if posted %}
+    Thanks for Announcing<br/>
+    <a href="/forum/announce">Announce Again</a>
+{% else %}
+<h1>Make an Announcement</h1>
+<br/><br/>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Announce">
+</form>
+{% endif %}
+{%endblock%}

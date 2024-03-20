@@ -14,6 +14,6 @@ window.addEventListener("load", (event) => {
     if (!navigator.geolocation) {
         console.log("Location not supported by your browser");
     } else {
-        navigator.geolocation.getCurrentPosition(success, error);
+        navigator.geolocation.getCurrentPosition(success, error, {enableHighAccuracy: true});
     }
 });
