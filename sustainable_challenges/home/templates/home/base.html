@@ -29,6 +29,9 @@
                     <ul class="navbar-nav  ms-auto mb-2 mb-lg-0">
                         <!--if user is logged in:-->
                         {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'game:game' %}">Game</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Litter</a>
@@ -78,11 +81,19 @@
                             <a class="nav-link" href="{% url 'game:game' %}">Game</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="shopRaffleDropdown" role="button" 
+                            <a class="nav-link dropdown-toggle" href="#" id="shopRaffleDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="shopRaffleDropdown">
                                 <li><a class="dropdown-item" href="{% url 'game:shop' %}">Point Shop</a></li>
                                 <li><a class="dropdown-item" href="{% url 'game:raffle' %}">Raffle</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">About us</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'home:goals' %}">Our goals</a></li>
+                                <li><a class="dropdown-item" href="{% url 'home:privacy' %}">Privacy policy</a></li>
                             </ul>
                         </li>
                         {% if is_staff %}

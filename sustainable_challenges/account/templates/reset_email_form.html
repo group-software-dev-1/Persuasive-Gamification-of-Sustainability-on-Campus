@@ -1,0 +1,18 @@
+<!-- reset_email_form.html -->
+
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Forgot Password</h2>
+    <p>Please enter your email address. We will send you a link to reset your password.</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+{% endblock %}

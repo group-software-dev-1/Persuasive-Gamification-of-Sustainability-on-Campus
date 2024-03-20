@@ -55,6 +55,15 @@
             <p>Last Login: {{ user.last_login }}</p>
 
             <p>Your current points are, {{ user.points}}</p>
+                 <!-- Form to send email for password reset -->
+      <form method="post" action="{% url 'account:reset_email' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="email" class="form-label">Forgotten your password? Enter your email address below to get sent a password reset link:</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Email</button>
+      </form>
         </div>
 
     </div>
