@@ -96,12 +96,35 @@ class User(AbstractBaseUser, PermissionsMixin):
        return self.first_name or self.email.split('@')[0]
 
     def get_game_manager(self):
+        """
+        Gets the game manger object for the user
+
+        Returns
+        -------
+        GameManager
+        The users game manager
+        """
+
+        # If not game manager exits one is created 
         if self.GAME_MANAGER is None:
             self.GAME_MANAGER = GameManager(self.points, self.level, self.tasks_till_next)
+
+        # Game manager is returned 
         return self.GAME_MANAGER
     
     def complete_task(self, task):
+        """
+        Completes a given task for the user
+
+        Parameters
+        ----------
+        task : String
+            The tasks that is being completed
+        """
+        # If not game manager exists one is created 
         if self.GAME_MANAGER is None:
             self.GAME_MANAGER = GameManager(self.points, self.level, self.tasks_till_next)
+
+        # Tasks is completed and attributed are updated
         self.level, self.points, self.tasks_till_next = self.GAME_MANAGER.complete_task(task)
         self.save()
