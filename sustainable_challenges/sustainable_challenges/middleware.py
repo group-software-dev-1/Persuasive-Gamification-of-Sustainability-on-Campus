@@ -56,7 +56,9 @@ class LoginRequiredMiddleware:
     def _should_exclude_path(self, path):
         excluded_paths = [
             '/login/',      
-            '/login/register/',   
+            '/login/register/',  
+            '/admin/login/', 
+            '/admin/',
             '/',            
         ]
         return path in excluded_paths
