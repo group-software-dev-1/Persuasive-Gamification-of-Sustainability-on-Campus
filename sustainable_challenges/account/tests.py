@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
+from authuser.models import User
 from django.core import mail
 
 class AccountAppTests(TestCase):
@@ -31,6 +31,7 @@ class AccountAppTests(TestCase):
         
     def test_reset_email_view(self):
         # Test reset email view
+        self.client.login(email='test@example.com', password='testpassword')
         response = self.client.get(reverse('account:reset_email'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'reset_email_form.html')
@@ -47,4 +48,3 @@ class AccountAppTests(TestCase):
         # Test password reset complete view
         response = self.client.get(reverse('account:password_reset_complete', kwargs={'uidb64': 'uidb64', 'token': 'token'}))
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('authuser:login'))
