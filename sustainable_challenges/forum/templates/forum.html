@@ -2,18 +2,20 @@
 
 {%block content%}
 {% load static %}
+<link rel="stylesheeyt" href="forum.css">
+<h1>Welcome to the Forum</h1>
+<h2><a class="btn btn-primary" href="{% url 'forum:post' %}">Make a Post</a><br/></h2>
 {% if announcements or suggestions %}
-    <ul>
+    <ul class="list-group list-group-flush">
         {%for announcement in announcements%}
-        <li>
-            <a href="announcement/{{announcement.id}}">{{ announcement.post_name }}</a>
-        </li>
+        <a class="list-group-item list-group-item-primary list-group-item-action" href="announcement/{{announcement.id}}">{{ announcement.post_name }} @ {{ announcement.post_date }}</a>
         {% endfor %}
         {%for suggestion in suggestions %}
-            <li><a href="suggestion/{{suggestion.id}}">{{ suggestion.post_name }}</a></li>
+        <a class="list-group-item list-group-item-action" href="suggestion/{{suggestion.id}}">{{ suggestion.post_name }} - {{ suggestion.poster.username }} @ {{ suggestion.post_date }}</a>
         {% endfor %}
     </ul>
 {% else %}
     <p>No instances are available.</p>
 {% endif %}
+<p>Please be respectful to other users</p>
 {%endblock%}
