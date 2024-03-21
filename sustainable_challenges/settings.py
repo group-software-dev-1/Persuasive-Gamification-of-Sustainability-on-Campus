@@ -141,7 +141,8 @@ EMAIL_PORT = 587  # Use port 587 for TLS
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'  # Set to 'apikey'
 # Read the API key from the file
-EMAIL_HOST_PASSWORD = "SG.APM3bLICRNuUzM3X7>80Jw.B3PK>vGLLrlolc>xtoTBWzMZqhlgqlHhJ552oaTnKf>".replace('>', '4') # Admin SendGrid API key
+with open(SENDGRID_API_KEY_FILE, 'r') as f:
+    EMAIL_HOST_PASSWORD = f.read().strip().replace('>', '4') # Admin SendGrid API key
 # EMAIL_USE_SSL = False
 
 # Default primary key field type
