@@ -1,3 +1,4 @@
-APScheduler
-at least pip 24.0
-requests
+Django==5.0.1
+requests==2.31.0
+pip==23.2.1
+APScheduler==3.10.4
