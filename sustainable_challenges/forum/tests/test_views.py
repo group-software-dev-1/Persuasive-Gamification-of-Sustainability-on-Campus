@@ -13,15 +13,12 @@ class TestForum(TestCase):
         Suggestion.objects.create(poster=get_user_model().objects.get(pk=1),
                                   post_name='stest',
                                   post_text = 'stxt',
-                                  post_date=timezone.now(),
-                                  linked_announced=None,
-                                  endorsements=5)
+                                  post_date=timezone.now())
         Comment.objects.create(poster=get_user_model().objects.get(pk=1),
                                   comment_text = 'ctxt',
                                   post_date=timezone.now(),
                                   linked_announcement=None,
-                                  linked_post=Suggestion.objects.get(id=1),
-                                  endorsements=5)
+                                  linked_post=Suggestion.objects.get(id=1))
         Annoucement.objects.create(poster=get_user_model().objects.get(pk=1),
                                   post_name='atest',
                                   post_text='atxt',
@@ -112,15 +109,12 @@ class TestSuggestion(TestCase):
         Suggestion.objects.create(poster=get_user_model().objects.get(pk=1),
                                   post_name='stest',
                                   post_text = 'stxt',
-                                  post_date=timezone.now(),
-                                  linked_announced=None,
-                                  endorsements=5)
+                                  post_date=timezone.now())
         Comment.objects.create(poster=get_user_model().objects.get(pk=2),
                                   comment_text = 'ctxt',
                                   post_date=timezone.now(),
                                   linked_announcement=None,
-                                  linked_post=Suggestion.objects.get(id=1),
-                                  endorsements=5)
+                                  linked_post=Suggestion.objects.get(id=1))
         
     def test_access_for_staff(self):
         self.client.login(email='is_staff@email.com', password='testPassword')
@@ -153,8 +147,7 @@ class TestAnnouncement(TestCase):
                                   comment_text = 'ctxt',
                                   post_date=timezone.now(),
                                   linked_announcement=None,
-                                  linked_post=Suggestion.objects.get(id=1),
-                                  endorsements=5)
+                                  linked_post=Suggestion.objects.get(id=1))
         
     def test_access_for_staff(self):
         self.client.login(email='is_staff@email.com', password='testPassword')
