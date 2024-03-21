@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.template import loader
+from django.urls import reverse
 from .models import Annoucement, Suggestion, Comment
 from .forms import PostForm, CommentForm, AnnounceForm
 # Create your views here.
@@ -29,10 +30,14 @@ def post(request):
             posted = True
 
     return render(request, 'post.html', {"form": form, 
-                                         'posted': posted})
+                                         'posted': posted,
+                                         "is_staff": request.user.is_staff})
 
 def announce(request):
     posted = False
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+    
     if request.method == "POST":
         # Takes the announce form and turns it into an objext
         form = AnnounceForm(request.POST)
@@ -47,7 +52,8 @@ def announce(request):
             posted = True
 
     return render(request, 'announce.html', {"form": form, 
-                                         'posted': posted})
+                                         'posted': posted,
+                                         "is_staff": request.user.is_staff})
 
 def suggestion(request, suggestion_id):
     # Gets suggestion and the comments on it
@@ -59,17 +65,19 @@ def suggestion(request, suggestion_id):
         if form.is_valid():
             obj = Comment(comment_text=form.cleaned_data['text'], linked_post=_suggestion, poster=request.user)
             obj.save()
-            return HttpResponseRedirect(f'/forum/forum/{_suggestion.id}')
+            return HttpResponseRedirect(f'/forum/forum/suggestion/{_suggestion.id}')
     else:
         # Gives blank comment form
         form = CommentForm
     return render(request, 'suggestion.html', {'title': _suggestion.post_name,
                                                      'post_text': _suggestion.post_text,
-                                                     'id': _suggestion.id,
+                                                     'object_id': _suggestion.id,
                                                      'date':_suggestion.post_date,
-                                                     'poster': _suggestion.poster.username,
+                                                     'poster': _suggestion.poster,
                                                      'comments': comments,
-                                                     'form': form})
+                                                     'form': form,
+                                                     "is_staff": request.user.is_staff,
+                                                     "requester_id": request.user.id})
 
 def announcement(request, announcement_id):
     # Gets announcement and the comments on it
@@ -90,4 +98,18 @@ def announcement(request, announcement_id):
                                                      'id': _announcement.id,
                                                      'date':_announcement.post_date,
                                                      'comments': comments,
-                                                     'form': form})
+                                                     'form': form,
+                                                     "is_staff": request.user.is_staff})
+
+def delete_post_function(request, id):
+    ob = Suggestion.objects.get(id=id)
+    ob.delete()
+    return redirect(reverse('forum:forum'))
+
+def endorse(request, id):
+    ob = Suggestion.objects.get(id=id)
+    if request.user.id in ob.endorsements:
+        return redirect(reverse('forum:forum:suggestion:{id}'))
+    else:
+        ob.endorsements.append(id)
+        return redirect(reverse('forum:forum:suggestion:{id}'))

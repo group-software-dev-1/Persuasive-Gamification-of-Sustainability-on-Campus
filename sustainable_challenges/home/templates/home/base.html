@@ -45,10 +45,10 @@
                             <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Forum</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="/forum/forum">Posts</a></li>
-                                <li><a class="dropdown-item" href="/forum/post">Make a post</a></li>
+                                <li><a class="dropdown-item" href="{% url 'forum:forum' %}">Posts</a></li>
+                                <li><a class="dropdown-item" href="{% url 'forum:post' %}">Make a post</a></li>
                                 {% if is_staff %}
-                                <li><a class="dropdown-item" href="/forum/announcement">Make announcement</a></li>
+                                <li><a class="dropdown-item" href="{% url 'forum:announce' %}">Make announcement</a></li>
                                 {% endif %}
                             </ul>
                         </li>
@@ -59,7 +59,7 @@
                             <a class="nav-link" href="{% url 'game:shop' %}">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Forum</a>
+                            <a class="nav-link" href="{% url 'leaderboard:leaderboard' %}">Leaderboard</a>
                         </li>
                         {% if is_staff %}
                         <li class="nav-item">

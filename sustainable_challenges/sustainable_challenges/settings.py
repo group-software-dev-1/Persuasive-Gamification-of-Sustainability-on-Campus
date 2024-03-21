@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'game',
     'forum',
     'poi',
+    'leaderboard',
 ]
 
 AUTH_USER_MODEL = 'authuser.User'

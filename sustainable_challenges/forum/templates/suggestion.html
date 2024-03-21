@@ -2,20 +2,25 @@
 
 {%block content%}
 {% load static %}
-{{ title }}<br/>
-{{ post_text }}<br/>
-{{ date }}<br/>
-{{ poster }}<br/>
+<h2>{{ title }}<br/></h2>
+<p>by {{ poster.username }} - @ {{ date }}</p>
+<p>{{ post_text }}<br/></p>
 {% if comments %}
-    <ul>
+    <ul style="list-style: none;">
         {%for comment in comments %}
-            <li>{{ comment.comment_text }} - {{ comment.poster}} at {{ comment.post_date }}</li>
+            <li>{{ comment.comment_text }} - {{ comment.poster.username}} at {{ comment.post_date }}</li>
         {% endfor %}
     </ul>
 {% endif %}
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="endorse" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Post">
 </form>
+{% if is_staff or requester_id == poster.id %}
+<form action="delete_post/{{object_id}}" method="POST">
+    {% csrf_token %}
+    <input class="btn btn-default btn-danger" type="submit" value="Delete"/>
+  </form>
+{% endif %}
 {%endblock%}

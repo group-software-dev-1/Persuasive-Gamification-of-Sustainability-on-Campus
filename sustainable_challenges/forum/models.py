@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+
 User = settings.AUTH_USER_MODEL
 
 class Post(models.Model):
@@ -18,10 +19,10 @@ class Post(models.Model):
     post_date: DateTime
               The Date and Time that this post was made
     '''
-    post_name = models.CharField(max_length=100)
-    post_text = models.CharField(max_length=400)
-    poster = models.ForeignKey(User, default=None, blank=True, null=True, on_delete=models.CASCADE)
-    post_date = models.DateTimeField(default=timezone.now)
+    post_name = models.CharField("Post Name", max_length=100)
+    post_text = models.CharField("Post Text", max_length=400)
+    poster = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Poster")
+    post_date = models.DateTimeField("Date Posted", default=timezone.now)
     class Meta:
         abstract = True
 
@@ -48,7 +49,7 @@ class Annoucement(Post):
     active: Boolean
           If the announcement is currently active
     '''
-    active = models.BooleanField(default=True)
+    active = models.BooleanField("Is Active", default=True)
 
 class Suggestion(Post):
     '''
@@ -66,11 +67,10 @@ class Suggestion(Post):
          The Date and Time that this post was made
     linked_announced: Announcement
          If the suggestion is attached to an announcement 
-    endorsements: Int
-         Number of endorsements recieved
     '''
-    linked_announced = models.ForeignKey(Annoucement, default=None, blank=True, null=True, on_delete=models.CASCADE)
-    endorsements = models.IntegerField(default=0)
+    linked_announced = models.ForeignKey( Annoucement, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Announcement")
+    def noEndorsements(self):
+        return len(self.endorsements)
 
 class Comment(models.Model):
     '''
@@ -88,14 +88,11 @@ class Comment(models.Model):
           The suggestion the comment is on
     linked_announcement = Announcement
           The announcement the comment is on
-    endorsements: Int
-         Number of endorsements recieved
     '''
-    comment_text = models.CharField(max_length= 400)
-    linked_post = models.ForeignKey(Suggestion, default=None, blank=True, null=True, on_delete=models.CASCADE)
-    linked_announcement = models.ForeignKey(Annoucement, default=None, blank=True, null=True, on_delete=models.CASCADE)
-    endorsements = models.IntegerField(default=0)
-    poster = models.ForeignKey(User, default=None, blank=True, null=True, on_delete=models.CASCADE)
-    post_date = models.DateTimeField(default=timezone.now)
+    comment_text = models.CharField("Comment Text", max_length= 400)
+    linked_post = models.ForeignKey(Suggestion, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Suggestion")
+    linked_announcement = models.ForeignKey(Annoucement, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Announcement")
+    poster = models.ForeignKey(User, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Poster")
+    post_date = models.DateTimeField("Date Posted", default=timezone.now)
 
 # Create your models here.

@@ -2,12 +2,11 @@
 
 {%block content%}
 {% load static %}
-{{ title }}<br/>
-{{ post_text }}<br/>
-{{ date }}<br/>
-{{ poster }}<br/>
+<h2>{{ title }}<br/></h2>
+<p>@ {{ date }}<br/></p>
+<p>{{ post_text }}<br/></p>
 {% if comments %}
-    <ul>
+    <ul style="list-style: none;">
         {%for comment in comments %}
             <li>{{ comment.comment_text }} - {{ comment.poster}} at {{ comment.post_date }}</li>
         {% endfor %}
