@@ -39,8 +39,6 @@ class RouterAccessMiddleware:
                 return HttpResponseRedirect(reverse('restricted_access'))
         #otherwise lets it happen
         return response
-    
-from django.shortcuts import redirect
 
 class LoginRequiredMiddleware:
     def __init__(self, get_response):
@@ -58,9 +56,10 @@ class LoginRequiredMiddleware:
     def _should_exclude_path(self, path):
         excluded_paths = [
             '/login/',      
-            '/login/register/',   
-            '/',
-            '/account/reset_email/',            
+            '/login/register/',  
+            '/admin/login/', 
+            '/admin/',
+            '/',            
         ]
         return path in excluded_paths
 

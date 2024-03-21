@@ -4,7 +4,7 @@ import random
 from game.models import Raffle
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-
+from forum.models import Annoucement
 from authuser.models import User
 
 class Command(BaseCommand):
@@ -16,6 +16,7 @@ class Command(BaseCommand):
         #adds the daily and weekly raffle s to it, every 3pm and for weekly every friday 3pm
         scheduler.add_job(self.daily_raffle, 'cron', hour=15, minute=0, second=0)
         scheduler.add_job(self.weekly_raffle, 'cron', day_of_week='fri', hour=15, minute=0, second=0)
+        print("We gaming")
         
         #starts the scheduler
         scheduler.start()
@@ -53,6 +54,13 @@ class Command(BaseCommand):
                     #gives them the points
                     winner_user.points += daily_raffle.points_accumulated
                     winner_user.save()
+                    annoucement = Annoucement.objects.create(
+                        post_name='Daily Raffle Winner Annoucement',
+                        post_text=f"Congratulations to {daily_winner} for winning the daily raffle!",
+                        poster=winner_user
+                    )
+
+                    
 
                 daily_raffle.save()
             else:
@@ -84,6 +92,11 @@ class Command(BaseCommand):
                 if winner_user:
                     winner_user.points += weekly_raffle.points_accumulated
                     winner_user.save()
+                    annoucement = Annoucement.objects.create(
+                        post_name='Daily Raffle Winner Annoucement',
+                        post_text=f"Congratulations to {weekly_winner} for winning the daily raffle!",
+                        poster=winner_user
+                    )
                     self.stdout.write(self.style.SUCCESS(f"Points added to winner ({weekly_winner}): {weekly_raffle.points_accumulated}"))
 
                 weekly_raffle.save()
