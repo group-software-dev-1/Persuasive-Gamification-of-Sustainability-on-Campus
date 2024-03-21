@@ -2,15 +2,15 @@
 
 {%block content%}
 {% load static %}
-<h2>{{ title }}<br/></h2>
-<p>@ {{ date }}<br/></p>
-<p>{{ post_text }}<br/></p>
+<h2>{{ title }}<br /></h2>
+<p>@ {{ date }}<br /></p>
+<p>{{ post_text }}<br /></p>
 {% if comments %}
-    <ul style="list-style: none;">
-        {%for comment in comments %}
-            <li>{{ comment.comment_text }} - {{ comment.poster}} at {{ comment.post_date }}</li>
-        {% endfor %}
-    </ul>
+<ul style="list-style: none;">
+    {%for comment in comments %}
+    <li>{{ comment.comment_text }} - {{ comment.poster}} at {{ comment.post_date }}</li>
+    {% endfor %}
+</ul>
 {% endif %}
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
