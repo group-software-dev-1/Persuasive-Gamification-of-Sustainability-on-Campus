@@ -33,11 +33,6 @@ class TestSuggestionInstance(TestCase):
         field_label = instance._meta.get_field('post_date').verbose_name
         self.assertEqual(field_label, 'Date Posted')
 
-    def test_endorsments_label(self):
-        instance = Suggestion.objects.get(id=1)
-        field_label = instance._meta.get_field('endorsements').verbose_name
-        self.assertEqual(field_label, 'Endorsements')
-
     def test_linkedannounce_label(self):
         instance = Suggestion.objects.get(id=1)
         field_label = instance._meta.get_field('linked_announced').verbose_name
@@ -52,11 +47,6 @@ class TestSuggestionInstance(TestCase):
         instance = Suggestion.objects.get(pk=1)
         default = instance._meta.get_field('linked_announced').default
         self.assertEqual(default, None)
-
-    def test_endorsement_default(self):
-        instance = Suggestion.objects.get(pk=1)
-        default = instance._meta.get_field('endorsements').default
-        self.assertEqual(default, 0)
 
     def test_getPostText(self):
         instance = Suggestion.objects.get(pk=1)
@@ -157,11 +147,6 @@ class TestCommentInstance(TestCase):
         field_label = instance._meta.get_field('post_date').verbose_name
         self.assertEqual(field_label, 'Date Posted')
 
-    def test_endorsments_label(self):
-        instance = Comment.objects.get(id=1)
-        field_label = instance._meta.get_field('endorsements').verbose_name
-        self.assertEqual(field_label, 'Endorsements')
-
     def test_linkedpost_label(self):
         instance = Comment.objects.get(id=1)
         field_label = instance._meta.get_field('linked_post').verbose_name
@@ -191,9 +176,4 @@ class TestCommentInstance(TestCase):
         instance = Comment.objects.get(pk=1)
         default = instance._meta.get_field('linked_post').default
         self.assertEqual(default, None)
-
-    def test_endorsement_default(self):
-        instance = Comment.objects.get(pk=1)
-        default = instance._meta.get_field('endorsements').default
-        self.assertEqual(default, 0)
 

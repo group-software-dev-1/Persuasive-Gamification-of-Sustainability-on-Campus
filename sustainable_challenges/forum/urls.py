@@ -9,5 +9,4 @@ urlpatterns = [
     path("forum/suggestion/<int:suggestion_id>", views.suggestion, name="suggestion"),
     path("forum/announcement/<int:announcement_id>", views.announcement, name="announcement"),
     path('forum/suggestion/delete_post/<int:id>', views.delete_post_function, name='delete_post'),
-    path('forum/suggestion/endorse/<int:id>', views.endorse, name='endorse')
 ]

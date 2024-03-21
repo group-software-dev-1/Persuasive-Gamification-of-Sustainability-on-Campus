@@ -69,8 +69,6 @@ class Suggestion(Post):
          If the suggestion is attached to an announcement 
     '''
     linked_announced = models.ForeignKey( Annoucement, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Announcement")
-    def noEndorsements(self):
-        return len(self.endorsements)
 
 class Comment(models.Model):
     '''

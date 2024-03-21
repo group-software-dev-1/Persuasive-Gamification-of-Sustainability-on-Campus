@@ -106,10 +106,3 @@ def delete_post_function(request, id):
     ob.delete()
     return redirect(reverse('forum:forum'))
 
-def endorse(request, id):
-    ob = Suggestion.objects.get(id=id)
-    if request.user.id in ob.endorsements:
-        return redirect(reverse('forum:forum:suggestion:{id}'))
-    else:
-        ob.endorsements.append(id)
-        return redirect(reverse('forum:forum:suggestion:{id}'))
