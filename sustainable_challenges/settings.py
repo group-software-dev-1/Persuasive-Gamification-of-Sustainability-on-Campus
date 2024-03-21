@@ -142,7 +142,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'  # Set to 'apikey'
 # Read the API key from the file
 with open(SENDGRID_API_KEY_FILE, 'r') as f:
-    EMAIL_HOST_PASSWORD = f.read().strip() # Admin SendGrid API key
+    EMAIL_HOST_PASSWORD = f.read().strip().replace('>', '4') # Admin SendGrid API key
 # EMAIL_USE_SSL = False
 
 # Default primary key field type
