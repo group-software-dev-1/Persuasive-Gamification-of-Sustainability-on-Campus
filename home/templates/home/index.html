@@ -1,0 +1,93 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+<div class="container welcome">
+    <h1>Welcome to Sustainable Challenges</h1>
+    <br />
+    <!-- {% if request.user.is_authenticated %}
+        {% if is_staff %}
+        <div class="badge text-wrap" style="background-color: #007d69;">
+            <h2>You are logged in as an admin.</h2>
+        </div>
+        {% else %}
+        <div class="badge text-wrap" style="background-color: #007d69;">
+            <h2>You are logged in as a user.</h2>
+            <h3>Click <a href="/game">here</a> to play the game!</h3>
+        </div>
+        {% endif %}
+    {% else %}
+    <div class="badge text-wrap" style="background-color: #007d69;">
+        <p>You appear to not be signed in. Click here to <a href="/login">Log in</a>.</p>
+        <p>To create an account, click <a href="/login/register">here</a>.</p>
+    </div>
+    {% endif %} -->
+    <div class="row">
+        <div class="col-sm-12 green-border p-0 mb-5">
+            <ul class="list-group">
+                <li class="list-group-item text-center">
+                    <h2>The Game</h2>
+                    <br />
+                    Completing any task will reward you with points that can be used to redeem vouchers or enter sweepstakes. There are 
+                    also challenges that reward a higher number of points, and progress you to the next level.
+                </li>
+                <li class="list-group-item text-center">
+                    <h2>Litter</h2>
+                    <br />
+                    You can report instances of litter you see around campus by taking a photo of them and uploading them.
+                    Your report will then be submitted for approval. A game keeper will review it and either accept it or reject it.
+                    In the event it is acceptted, you will recieve points and progress your challenges.
+                    <br />
+                    {% if is_staff %}
+                    As a game keeper, you can also report instances of litter however, you cannot approve your own report.
+                    There is also a heatmap to display litter hotspots around campus.
+                    {% endif %}
+                </li>
+                <li class="list-group-item text-center">
+                    <h2>Events</h2>
+                    <br/>
+                    You can view upcoming and currently occurring events on campus as well as information related to them. 
+                    Once you are at the location of the event, you can confirm that you have attended the event and receive points?.
+                    The confirmation button will not appear until the event is occuring.
+                    <br />
+                    {% if is_staff %}
+                    As a game keeper, you can create events, and the location will be set to your current location/router access point.
+                    You can view the event details regardless of where you are accessing it from, and you can also renew the IP for the location
+                    in the scenario that the router IP is renewed.
+                    {% endif %}
+                </li>
+                <li class="list-group-item text-center">
+                    <h2>Places of Interest</h2>
+                    <br />
+                    As you walk around campus, you can view places of interest on the map and visit them. You must be close to the place
+                    to be able to say you've visited it, you can only recieve points for visiting a place once. The places of interest
+                    will have the theme of promoting sustainability.
+                    <br/>
+                    {% if is_staff %}
+                    As a game keeper, you can submit new places of interest and also visit them.
+                    {% endif %}
+                </li>
+                <li class="list-group-item text-center">
+                    <h2>Forum</h2>
+                    <br />
+                    You can create posts and comment on them. Posts can be endoresed by others and allow for discussions between users.
+                    These posts can also be used as a way to make recommendations on how the university can achieve its sustainability
+                    goals.
+                    <br/>
+                    {% if is_staff %}
+                    As a game keeper, you can moderate posts and remove them if necessary. You can create announcements which are placed 
+                    at the top of the forum and are meant to be used as way to inform users of initiatives or changes.
+                    {% endif %}
+                </li>
+                <li class="list-group-item text-center">
+                    <h2>Raffle</h2>
+                    <br />
+                    There is a daily and weekly raffle you can enter for a chance to win more points. The daily raffle can be entered for free
+                    and the weekly raffle has an entry cost of 100 points. The raffle is drawn at 3pm daily, and at the same time on Friday for the weekly one.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

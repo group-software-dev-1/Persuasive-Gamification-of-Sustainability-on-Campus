@@ -1,0 +1,73 @@
+{% extends 'home/base.html'%}
+
+{%block content%}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Account Page</title>
+    <!-- CSS Styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #E8F4E5; /* Green background */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff; /* White container background */
+        }
+        h1 {
+            text-align: center;
+        }
+        .user-content {
+            margin-top: 20px;
+        }
+        .user-details {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9; /* Light grey background for user details */
+            margin-bottom: 10px;
+        }
+        .user-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Account Page</h1>
+        
+        <!-- User Account Section -->
+        <div class="user-content">
+            <h2>User Account Section</h2>
+            <!-- User Details Below -->
+            <p>Welcome, {{ user.username }}! Here you can view your account details.</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Last Login: {{ user.last_login }}</p>
+
+            <p>Your current points are, {{ user.points}}</p>
+
+         <!-- Form to send email for password reset -->
+      <form method="post" action="{% url 'account:reset_email' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="email" class="form-label">Forgotten your password? Enter your email address below to get sent a password reset link:</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Email</button>
+      </form>
+            
+        </div>
+    </div>
+</body>
+</html>
+{%endblock%}
