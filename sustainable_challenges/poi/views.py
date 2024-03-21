@@ -8,11 +8,12 @@ from .forms import PlaceOfInterestForm, LocationForm
 from json import dumps
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from typing import Union
 
 # Create your views here.
 
 @login_required
-def submit(request: HttpRequest) -> HttpResponse | HttpResponseRedirect | HttpResponseForbidden:
+def submit(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect, HttpResponseForbidden]:
     '''
     Endpoint for game keepers to create a new place of interest
 
@@ -54,7 +55,7 @@ def submit(request: HttpRequest) -> HttpResponse | HttpResponseRedirect | HttpRe
                                                 'is_staff': request.user.is_staff})
 
 @login_required
-def information(request: HttpRequest, poi_id: int) -> HttpResponse | HttpResponseRedirect:
+def information(request: HttpRequest, poi_id: int) -> Union[HttpResponse, HttpResponseRedirect]:
     '''
     Endpoint for users to view additional information about a place of interest
 
@@ -94,7 +95,7 @@ def information(request: HttpRequest, poi_id: int) -> HttpResponse | HttpRespons
             if lat_delta <= 0.001 and lon_delta <= 0.001:  # 111 meter difference between user location and poi location
                 close = True
                 VisitedPlaceOfInterest.objects.create(user=request.user, place=poi)
-
+                request.user.complete_task("interest")
             return HttpResponseRedirect(f'/poi/info/{poi_id}?submitted=True&close={close}')
     else:
         form = LocationForm

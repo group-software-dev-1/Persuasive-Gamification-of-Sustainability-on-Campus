@@ -7,6 +7,7 @@ from django.utils import timezone
 from .forms import InstanceForm, ApproveForm, TimeRangeForm
 from json import dumps
 from django.contrib.auth.decorators import login_required
+from typing import Union
 
 @login_required
 def latest(request: HttpRequest) -> HttpResponse:
@@ -53,7 +54,7 @@ def your_instances(request: HttpRequest) -> HttpResponse:
     return render(request, "litter/your-instances.html", {"instance_list": instance_list, 'is_staff': request.user.is_staff})
 
 @login_required
-def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpResponseRedirect:
+def instance(request: HttpRequest, instance_id: int) -> Union[HttpResponse, HttpResponseRedirect]:
     '''
     Endpoint for displaying a single instance of litter.
     If a staff user accesses this page, the instance is pending and they're not the one who made the report,
@@ -86,6 +87,8 @@ def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpRespo
         if form.is_valid():
             _instance.approved = form.cleaned_data['options']
             _instance.save()
+            if _instance.approved == "1":
+                _instance.user.complete_task('litter')
             return HttpResponseRedirect(f'/litter/instance/{_instance.id}?submitted=True')
     else:
         form = ApproveForm
@@ -100,7 +103,7 @@ def instance(request: HttpRequest, instance_id: int) -> HttpResponse | HttpRespo
                                                    "is_staff": request.user.is_staff})
 
 @login_required
-def report(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
+def report(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
     '''
     Endpoint for users to report an instance of litter on campus
 
@@ -145,7 +148,7 @@ def report(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
                                                   'is_staff': request.user.is_staff})
 
 @login_required
-def heatmap(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
+def heatmap(request: HttpRequest) -> Union[HttpResponse, HttpResponseRedirect]:
     '''
     Endpoint for staff to view the heatmap of litter on campus.
     There is a form that allows the user to change the datetime range of litter reports that will be

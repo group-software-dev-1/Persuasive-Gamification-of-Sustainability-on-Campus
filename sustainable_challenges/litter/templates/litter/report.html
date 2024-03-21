@@ -24,7 +24,7 @@
         <div class="col-sm-12 col-md-8">
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center">
-                    <form class="col-sm-12 col-md-8 d-flex justify-content-center align-items-center bg-white rounded" action="" method="POST" enctype="multipart/form-data">
+                    <form id="form" class="col-sm-12 col-md-8 d-flex justify-content-center align-items-center bg-white rounded" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <fieldset class="d-flex align-items-center mt-3">
                             {{ form.as_p }}

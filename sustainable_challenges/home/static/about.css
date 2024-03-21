@@ -1,0 +1,23 @@
+.title {
+    background-color: #007d69;
+    width: 50%;
+    margin: 20px auto;
+    border-radius: 25px;
+    padding: 5px;
+}
+
+.title h1 {
+    color: white;
+    text-align: center;
+}
+
+.body {
+    background-color: white;
+    width: 75%;
+    margin: auto;
+    padding: 20px;
+    border-style: solid;
+    border-width: 15px;
+    border-color: #007d69;
+    border-radius:10px;
+}

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5)llgiq48)y_fis)5*4%iek=^y4@g7%yo62en@a7=h@#gysgxw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = "/login/"
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'authuser',
+    'study_area',
     'home',
     'game',
     'forum',
@@ -59,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sustainable_challenges.middleware.RouterAccessMiddleware',
+    'sustainable_challenges.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'sustainable_challenges.urls'
@@ -128,6 +131,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Path to the SendGrid API key file
+SENDGRID_API_KEY_FILE = os.path.join(BASE_DIR, 'API_key.txt')
+
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587  # Use port 587 for TLS
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'  # Set to 'apikey'
+# Read the API key from the file
+with open(SENDGRID_API_KEY_FILE, 'r') as f:
+    EMAIL_HOST_PASSWORD = f.read().strip() # Admin SendGrid API key
+# EMAIL_USE_SSL = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
