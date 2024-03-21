@@ -47,11 +47,13 @@ INSTALLED_APPS = [
     'game',
     'forum',
     'poi',
+    'leaderboard',
 ]
 
 AUTH_USER_MODEL = 'authuser.User'
 
 MIDDLEWARE = [
+    'sustainable_challenges.middleware.RouterAccessMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
