@@ -65,10 +65,8 @@ class Suggestion(Post):
          The user who posted the post
     post_date: DateTime
          The Date and Time that this post was made
-    linked_announced: Announcement
-         If the suggestion is attached to an announcement 
     '''
-    linked_announced = models.ForeignKey( Annoucement, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Announcement")
+    endorsements = models.IntegerField(default=1)
 
 class Comment(models.Model):
     '''
@@ -92,5 +90,6 @@ class Comment(models.Model):
     linked_announcement = models.ForeignKey(Annoucement, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Announcement")
     poster = models.ForeignKey(User, default=None, blank=True, null=True, on_delete=models.CASCADE, verbose_name="Poster")
     post_date = models.DateTimeField("Date Posted", default=timezone.now)
+    endorsements = models.IntegerField(default=1)
 
 # Create your models here.
