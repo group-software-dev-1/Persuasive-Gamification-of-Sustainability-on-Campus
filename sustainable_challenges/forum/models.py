@@ -21,7 +21,7 @@ class Post(models.Model):
     '''
     post_name = models.CharField("Post Name", max_length=100)
     post_text = models.CharField("Post Text", max_length=400)
-    poster = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Poster")
+    poster = models.ForeignKey(User, on_delete=models.CASCADE, default=None, verbose_name="Poster")
     post_date = models.DateTimeField("Date Posted", default=timezone.now)
     class Meta:
         abstract = True
