@@ -4,7 +4,28 @@ from django.urls import reverse
 from study_area.models import Event
 import requests
 
+class LoginRequiredMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
 
+    #this gets called if the user hasnt been logged in and is trying to go to an restricted url
+    def __call__(self, request):
+        response = self.get_response(request)
+        if not request.user.is_authenticated and not self._should_exclude_path(request.path):
+            #sends them to landing page
+            return redirect('/')
+        return response
+
+    #list of allowed paths
+    def _should_exclude_path(self, path):
+        excluded_paths = [
+            '/login/',      
+            '/login/register/',   
+            '/',
+            '/account/reset_email/',            
+        ]
+        return path in excluded_paths
+    
 #function that gets the router ip 
 def get_router_ip(request):
     #uses this api i found to just return the routers public ip
@@ -39,8 +60,6 @@ class RouterAccessMiddleware:
                 return HttpResponseRedirect(reverse('restricted_access'))
         #otherwise lets it happen
         return response
-    
-from django.shortcuts import redirect
 
 class LoginRequiredMiddleware:
     def __init__(self, get_response):
@@ -58,9 +77,10 @@ class LoginRequiredMiddleware:
     def _should_exclude_path(self, path):
         excluded_paths = [
             '/login/',      
-            '/login/register/',   
-            '/',
-            '/account/reset_email/',            
+            '/login/register/',  
+            '/admin/login/', 
+            '/admin/',
+            '/',            
         ]
         return path in excluded_paths
 

@@ -1,0 +1,16 @@
+{% extends 'home/base.html'%}
+
+{%block content%}
+{% load static %}
+{% if users %}
+<h1>Leaderboard</h1>
+<p>Here are the 100 current highest leveled users</p>
+<ul class="list-group list-group-flush">
+    {%for user in users%}
+        <li class="list-group-item">{{ user.username }} - Level {{ user.level }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+    <p>No Users can be found</p>
+{% endif %}
+{%endblock%}

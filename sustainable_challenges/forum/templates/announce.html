@@ -2,6 +2,7 @@
 
 {%block content%}
 {% load static %}
+{% if is_staff %}
 {% if posted %}
     Thanks for Announcing<br/>
     <a href="/forum/announce">Announce Again</a>
@@ -13,5 +14,8 @@
     {{ form }}
     <input type="submit" value="Announce">
 </form>
+{% endif %}
+{% else %}
+    <p>You do not have permission to view this data</p>
 {% endif %}
 {%endblock%}
