@@ -1,8 +1,10 @@
 from django.shortcuts import redirect, render
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 
 from .models import Raffle
 
+@login_required
 def game(request):
     """
     This function renders the game page
@@ -43,6 +45,7 @@ def game(request):
     context = {"current_context": current_context, 'level_contexts':level_contexts, 'is_staff': user.is_staff,}
     return render(request, "game/game.html", context)
 
+@login_required
 def shop(request):
     """
     This function renders the shop page
@@ -81,6 +84,7 @@ def shop(request):
     # The page is rendered with context for the prizes 
     return render(request, "game/shop.html", {'completion':completion, 'prize_to_points':prize_to_points, 'points': request.user.points, 'success':success, 'response': response, 'is_staff': request.user.is_staff})
 
+@login_required
 def raffle(request):
     #gets the raffles by checking their names
     daily_raffle = Raffle.objects.filter(name='Daily').first()

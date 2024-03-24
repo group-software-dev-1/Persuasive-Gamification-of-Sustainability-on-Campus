@@ -5,14 +5,17 @@ from .forms import EventForm
 from .models import Event
 from sustainable_challenges.middleware import get_router_ip
 from authuser.models import User
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def home(request):
     is_staff = request.user.is_authenticated and request.user.is_staff
     return render(request, 'study_area/home.html', {"is_staff": is_staff})
 
 
 
+@login_required
 def event(request):
     #uses function to get the ip of the request sent
     router_ip = get_router_ip(request)
@@ -45,6 +48,7 @@ def event(request):
 
 
 #creation of evenets
+@login_required
 def create_event(request):
     #takes a post reqeuest and makes a new event using the event form
     if request.method == 'POST':
@@ -60,6 +64,7 @@ def create_event(request):
     return render(request, 'study_area/create_event.html', {'form': form, 'is_staff': is_staff})
 
 
+@login_required
 def event_detail(request, event_id):
     #first checks if url is valid
     try:
