@@ -11,7 +11,7 @@ class LoginRequiredMiddleware:
     #this gets called if the user hasnt been logged in and is trying to go to an restricted url
     def __call__(self, request):
         response = self.get_response(request)
-        if not request.user.is_authenticated and not self._should_exclude_path(request.path):
+        if (not request.user.is_authenticated) and (not self._should_exclude_path(request.path)):
             #sends them to landing page
             return redirect('/login/')
         return response
@@ -60,27 +60,3 @@ class RouterAccessMiddleware:
                 return HttpResponseRedirect(reverse('restricted_access'))
         #otherwise lets it happen
         return response
-
-# class LoginRequiredMiddleware:
-#     def __init__(self, get_response):
-#         self.get_response = get_response
-
-#     #this gets called if the user hasnt been logged in and is trying to go to an restricted url
-#     def __call__(self, request):
-#         response = self.get_response(request)
-#         if not request.user.is_authenticated and not self._should_exclude_path(request.path):
-#             #sends them to landing page
-#             return redirect('/')
-#         return response
-
-#     #list of allowed paths
-#     def _should_exclude_path(self, path):
-#         excluded_paths = [
-#             '/login/',      
-#             '/login/register/',  
-#             '/admin/login/', 
-#             '/admin/',
-#             '/',            
-#         ]
-#         return path in excluded_paths
-
