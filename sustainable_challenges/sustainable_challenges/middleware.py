@@ -13,7 +13,7 @@ class LoginRequiredMiddleware:
         response = self.get_response(request)
         if not request.user.is_authenticated and not self._should_exclude_path(request.path):
             #sends them to landing page
-            return redirect('/')
+            return redirect('/login/')
         return response
 
     #list of allowed paths
@@ -22,7 +22,7 @@ class LoginRequiredMiddleware:
             '/login/',      
             '/login/register/',   
             '/',
-            '/account/reset_email/',            
+            '/account/reset_email/', 
         ]
         return path in excluded_paths
     
@@ -61,26 +61,26 @@ class RouterAccessMiddleware:
         #otherwise lets it happen
         return response
 
-class LoginRequiredMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
+# class LoginRequiredMiddleware:
+#     def __init__(self, get_response):
+#         self.get_response = get_response
 
-    #this gets called if the user hasnt been logged in and is trying to go to an restricted url
-    def __call__(self, request):
-        response = self.get_response(request)
-        if not request.user.is_authenticated and not self._should_exclude_path(request.path):
-            #sends them to landing page
-            return redirect('/')
-        return response
+#     #this gets called if the user hasnt been logged in and is trying to go to an restricted url
+#     def __call__(self, request):
+#         response = self.get_response(request)
+#         if not request.user.is_authenticated and not self._should_exclude_path(request.path):
+#             #sends them to landing page
+#             return redirect('/')
+#         return response
 
-    #list of allowed paths
-    def _should_exclude_path(self, path):
-        excluded_paths = [
-            '/login/',      
-            '/login/register/',  
-            '/admin/login/', 
-            '/admin/',
-            '/',            
-        ]
-        return path in excluded_paths
+#     #list of allowed paths
+#     def _should_exclude_path(self, path):
+#         excluded_paths = [
+#             '/login/',      
+#             '/login/register/',  
+#             '/admin/login/', 
+#             '/admin/',
+#             '/',            
+#         ]
+#         return path in excluded_paths
 
