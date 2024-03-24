@@ -15,8 +15,9 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def user_account(request):
     user = request.user  # Retrieve the current logged-in user
     context = {
@@ -24,6 +25,7 @@ def user_account(request):
     }
     return render(request, 'user_account.html', context)
 
+@login_required
 def admin_account(request):
     #if not request.user.is_staff:
           # return HttpResponse("Unauthorized", status=401)
