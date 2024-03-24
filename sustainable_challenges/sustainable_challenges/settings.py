@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'authuser.User'
 
 MIDDLEWARE = [
+    'sustainable_challenges.middleware.LoginRequiredMiddleware',
     'sustainable_challenges.middleware.RouterAccessMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -61,8 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'sustainable_challenges.middleware.LoginRequiredMiddleware',
-    'sustainable_challenges.middleware.RouterAccessMiddleware',
     
 ]
 

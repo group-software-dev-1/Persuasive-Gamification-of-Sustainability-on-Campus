@@ -13,7 +13,7 @@ class LoginRequiredMiddleware:
         response = self.get_response(request)
         if (not request.user.is_authenticated) and (not self._should_exclude_path(request.path)):
             #sends them to landing page
-            return redirect('/')
+            return redirect('/login/')
         return response
 
     #list of allowed paths
@@ -22,7 +22,7 @@ class LoginRequiredMiddleware:
             '/login/',      
             '/login/register/',   
             '/',
-            '/account/reset_email/',            
+            '/account/reset_email/', 
         ]
         return path in excluded_paths
     

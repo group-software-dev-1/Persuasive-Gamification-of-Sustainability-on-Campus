@@ -4,6 +4,7 @@ from django.template import loader
 from django.urls import reverse
 from .models import Annoucement, Suggestion, Comment
 from .forms import PostForm, CommentForm, AnnounceForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def forum(request):
@@ -14,6 +15,7 @@ def forum(request):
                                           'announcements': annoucements,
                                           "is_staff": request.user.is_staff})
 
+@login_required
 def post(request):
     posted = False
     if request.method == "POST":
@@ -33,6 +35,7 @@ def post(request):
                                          'posted': posted,
                                          "is_staff": request.user.is_staff})
 
+@login_required
 def announce(request):
     posted = False
     if not request.user.is_staff:
@@ -55,6 +58,7 @@ def announce(request):
                                          'posted': posted,
                                          "is_staff": request.user.is_staff})
 
+@login_required
 def suggestion(request, suggestion_id):
     # Gets suggestion and the comments on it
     _suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
@@ -79,6 +83,7 @@ def suggestion(request, suggestion_id):
                                                      "is_staff": request.user.is_staff,
                                                      "requester_id": request.user.id})
 
+@login_required
 def announcement(request, announcement_id):
     # Gets announcement and the comments on it
     _announcement = get_object_or_404(Annoucement, pk=announcement_id)
@@ -101,6 +106,7 @@ def announcement(request, announcement_id):
                                                      'form': form,
                                                      "is_staff": request.user.is_staff})
 
+@login_required
 def delete_post_function(request, id):
     ob = Suggestion.objects.get(id=id)
     ob.delete()
